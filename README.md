@@ -1,2 +1,2 @@
 # Restaurant_page
-All done with javascript. Use of Webpack
+All done with javascript. Use of Webpack, SOLID principles
