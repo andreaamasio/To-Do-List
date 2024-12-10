@@ -1,16 +1,23 @@
 import "./style.css"
-import Project from "./projects"
+import Project from "./projects.js"
+import Task from "./tasks.js"
 // logic list containing project
 // logic create project
 // logic add new project
 // logic delete project
-
 const myProject=Project("Today")
-myProject.addToProject("Fare spesa")
-myProject.addToProject("Allenarsi")
-myProject.addToProject("Fare Doccia")
-myProject.removeFromProject("Fare spesa")
-myProject.projectList
+const myTask1=Task('Fare Spesa','Andare all\'LIDL','10/12/24','Low')
+myProject.addToProject(myTask1)
+const myTask2=Task('Fare Lavatrice','Lavare colorati','11/12/24','Medium')
+myProject.addToProject(myTask2)
+
+console.log(myProject.projectList)
+myProject.removeFromProject(myTask1)
+console.log(myProject.projectList)
+console.log(myProject)
+
+
+
 
 
 
