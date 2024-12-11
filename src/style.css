@@ -13,7 +13,11 @@ h1 {
     margin: 20px auto;
     font-size: 1.2rem;
 }
-
+.project-header{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px
+}
 #content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -31,7 +35,7 @@ h1 {
 .project-title {
     text-align: center;
     font-weight: bold;
-    font-size: 1.3rem;    
+    font-size: 1.5rem;    
 }
 .project-body{
     display: grid;
@@ -56,4 +60,7 @@ h1 {
 .due-date-task{    
     text-align: right;
 }
+button {
+    font-size: 1.1rem;
 
+}
