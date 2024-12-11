@@ -1,7 +1,45 @@
 * {
     margin: 0;
     padding: 0;
+    list-style-type: none
 }
-body {
-    background-color: rebeccapurple;
+h1 {
+    text-align: center;
+}
+#content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    font-size: 1.2rem;
+    gap: 50px
+}
+.project {
+    outline: 1px solid grey;
+    padding: 3px;
+    display: grid;
+    grid-template-areas: 
+    "project-title project-title"
+    "task-title due-date-title"
+    "tasks due-date"
+    
+    ;
+}
+.project-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    grid-area: project-title;
+}
+.task-title {
+    grid-area: task-title;
+    font-weight: 700;
+}
+.due-date-title {
+    grid-area: due-date-title;
+    font-weight: 700;
+}
+.tasks {
+    grid-area: tasks;
+}
+.due-date {
+    grid-area: due-date;
 }
