@@ -6,6 +6,14 @@
 h1 {
     text-align: center;
 }
+.div-button-new-project{
+    display: grid;
+}
+#new-project-button {
+    margin: 20px auto;
+    font-size: 1.2rem;
+}
+
 #content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -16,30 +24,36 @@ h1 {
     outline: 1px solid grey;
     padding: 3px;
     display: grid;
-    grid-template-areas: 
-    "project-title project-title"
-    "task-title due-date-title"
-    "tasks due-date"
-    
-    ;
+    /* grid-template-columns: 0.1fr 1fr 1fr; */
+    grid-template-rows: 0.2fr 1fr;    
 }
+
 .project-title {
     text-align: center;
     font-weight: bold;
-    font-size: 1.3rem;
-    grid-area: project-title;
+    font-size: 1.3rem;    
 }
-.task-title {
-    grid-area: task-title;
+.project-body{
+    display: grid;
+    grid-template-columns: 0.1fr 1fr 1fr;
+    gap: 10px;
+}
+.task-title, .expand-title {    
     font-weight: 700;
 }
-.due-date-title {
-    grid-area: due-date-title;
+.due-date-title {    
     font-weight: 700;
+    text-align: right;
 }
-.tasks {
-    grid-area: tasks;
+
+.expand-button{
+    width: 2rem;
+    margin: auto;
 }
-.due-date {
-    grid-area: due-date;
+.project-task {
+    
 }
+.due-date-task{    
+    text-align: right;
+}
+
