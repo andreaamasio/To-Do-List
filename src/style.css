@@ -22,20 +22,21 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     font-size: 1.2rem;
-    gap: 50px
+    gap: 50px;
+    padding: 10px;
 }
 .project {
     outline: 1px solid grey;
     padding: 3px;
     display: grid;
-    /* grid-template-columns: 0.1fr 1fr 1fr; */
+    
     grid-template-rows: 0.2fr 1fr;    
 }
 
 .project-title {
     text-align: center;
     font-weight: bold;
-    font-size: 1.5rem;    
+    font-size: 1.8rem;    
 }
 .project-body{
     display: grid;
@@ -51,8 +52,11 @@ h1 {
 }
 
 .expand-button{
-    width: 2rem;
-    margin: auto;
+    width: 1.8rem;
+    margin-left: auto;
+    height: 1.4rem;
+    padding: 0;
+    
 }
 .project-task {
     
@@ -61,6 +65,6 @@ h1 {
     text-align: right;
 }
 button {
-    font-size: 1.1rem;
-
+    font-size: 1rem;
+    padding: 3px;
 }
