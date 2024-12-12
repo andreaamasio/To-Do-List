@@ -14,9 +14,14 @@ h1 {
     font-size: 1.2rem;
 }
 .project-header{
-    display: flex;
+    display: grid;
     justify-content: space-around;
-    margin: 20px
+    margin: 20px;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+.delete-project {
+    grid-column-start: 2;
 }
 #content {
     display: grid;
@@ -28,8 +33,7 @@ h1 {
 .project {
     outline: 1px solid grey;
     padding: 3px;
-    display: grid;
-    
+    display: grid;    
     grid-template-rows: 0.2fr 1fr;    
 }
 
@@ -42,6 +46,7 @@ h1 {
     display: grid;
     grid-template-columns: 0.1fr 1fr 1fr;
     gap: 10px;
+    padding: 10px;
 }
 .task-title, .expand-title {    
     font-weight: 700;
@@ -67,4 +72,21 @@ h1 {
 button {
     font-size: 1rem;
     padding: 3px;
+}
+form {
+    margin-top: 25px;
+    font-size: 1.2rem;
+    display: grid;
+    padding: 10px
+}
+form p {
+    margin-bottom: 5px;
+    font-weight: 800;
+}
+form input {
+    font-size: 1rem;
+}
+form button {
+    margin: 5px auto;
+
 }

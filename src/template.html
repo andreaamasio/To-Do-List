@@ -18,7 +18,7 @@
         
          <div class="project">
             <div class="project-header">
-                <button class="add-task">Add Task</button>
+                
                 <p class="project-title">Today's Tasks</p>
                 <button class="modify-project-name">Modify Project Name</button>
                 <button class="delete-project">Delete Project</button>
@@ -29,6 +29,32 @@
                 <button class="expand-button">+</button><div class="project-task">Read 10 pages</div><div class="due-date-task">15/12/24</div>
                 <button class="expand-button">+</button><div class="project-task">3000 steps</div><div class="due-date-task">15/12/24</div>
                 
+            </div>
+            <div class="add-task-section">
+                <form action="">
+                    
+                        <p>Add New Task:</p>
+                        <label for="task-title">Task Title:</label>
+                        <input type="text" id="task-title" name="task-title" placeholder="Run 1 mile">
+                        <div class="form-subsection">
+                            <label for="due-date">Due Date:</label>
+                            <input type="date" id="due-date" name="due-date">
+                            <label for="priority">Priority:</label>
+                            
+                            <select name="priority" id="priority">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                            <label for="completed">Completed?</label>
+                            <input type="checkbox" id="completed" name="completed">
+                        </div>
+                        <label for="description">Description:</label>
+                        <textarea type="text" id="description" name="description" cols="40" rows="4">
+                        </textarea>
+                        <button class="add-task">Add Task</button>
+                      
+                </form>
             </div>
          </div>
         
