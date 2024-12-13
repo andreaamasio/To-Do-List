@@ -6,14 +6,17 @@
 // logic remove task from list project
 // logic toggle completed task
 // change todo priority
+export const projectList = [Project('Today')]
 
-export default function Project (name) {
-    const projectList = []
-    const addToProject = (task) => projectList.push(task);
+export function Project (name) {
+    // below already contains default project list Today
+    
+    const taskList=[]
+    const addToProject = (task) => taskList.push(task);
     const removeFromProject = (task) => {
-        let index = projectList.indexOf(task)
-        projectList.splice(index,1)
+        let index = taskList.indexOf(task)
+        taskList.splice(index,1)
     };
     
-    return { name,  projectList, addToProject, removeFromProject};
+    return { name, addToProject, removeFromProject};
   }

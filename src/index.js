@@ -1,6 +1,8 @@
 // import "./style.css"
-import Project from "./projects.js"
+import { Project } from "./projects.js"
 import Task from "./tasks.js"
+import { askProjectName } from "./dom.js"
+import { projectList } from "./projects.js"
 // logic list containing project
 // logic create project
 // logic add new project
@@ -11,13 +13,23 @@ import Task from "./tasks.js"
 // logic toggle completed task
 // change todo priority
 
-const defaultProject=Project("My List")
-const firstTask=Task("x","eat","21-12-24","low", false)
-firstTask.toggleCompleted()
-console.log(firstTask.getCompleted)
-firstTask.priority='high'
-console.log(firstTask.priority)
+// const defaultProject=Project("My List")
+// const firstTask=Task("x","eat","21-12-24","low", false)
+// firstTask.toggleCompleted()
+// console.log(firstTask.getCompleted)
+// firstTask.priority='high'
+// console.log(firstTask.priority)
 
+
+// -----
+// const content=document.querySelector('#content')
+// create new project
+
+
+
+const newProjectButton=document.querySelector("#new-project-button")
+newProjectButton.addEventListener('click',askProjectName)
+console.log(projectList)
 
 
 
