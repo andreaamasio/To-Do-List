@@ -10,7 +10,7 @@ const content=document.querySelector('#content')
 export function askProjectName(){
     let projectName=prompt("How do you call this new project list?", "New Project")
     let newProject = Project(projectName)
-    let projectID = Math.random()*100
+    let projectID = 'project-'+Math.trunc(Math.random()*100000)
     newProject["id"] = projectID
     projectList.push(newProject)
     console.log(projectList)
@@ -21,7 +21,7 @@ export function askProjectName(){
 function createProjectElement(projectName, projectID) {
     // Create project container
     const projectDiv = document.createElement("div");
-    projectDiv.className = "project " + projectID; // identifier for logic
+    projectDiv.setAttribute("id", projectID); // identifier for logic
     
     
     // Create project header
@@ -72,6 +72,7 @@ function createProjectElement(projectName, projectID) {
 
     const form = document.createElement("form");
     form.setAttribute("action", "");
+    form.setAttribute("id", projectID);
 
     const formHeading = document.createElement("p");
     formHeading.textContent = "Add New Task:";
@@ -86,7 +87,7 @@ function createProjectElement(projectName, projectID) {
     inputTaskTitle.setAttribute("id", "task-title");
     inputTaskTitle.setAttribute("name", "task-title");
     inputTaskTitle.setAttribute("placeholder", "Run 1 mile");
-    inputTaskTitle.className=projectID
+    inputTaskTitle.className="task-title " + projectID
 
     const formSubsection = document.createElement("div");
     formSubsection.className = "form-subsection";
@@ -99,7 +100,7 @@ function createProjectElement(projectName, projectID) {
     inputDueDate.setAttribute("type", "date");
     inputDueDate.setAttribute("id", "due-date");
     inputDueDate.setAttribute("name", "due-date");
-    inputDueDate.className = projectID
+    inputDueDate.className = "due-date " + projectID
 
     const labelPriority = document.createElement("label");
     labelPriority.setAttribute("for", "priority");
@@ -108,7 +109,7 @@ function createProjectElement(projectName, projectID) {
     const selectPriority = document.createElement("select");
     selectPriority.setAttribute("id", "priority");
     selectPriority.setAttribute("name", "priority");
-    selectPriority.className = projectID
+    selectPriority.className = "priority " + projectID
 
     const lowOption = document.createElement("option");
     lowOption.setAttribute("value", "low");
@@ -134,7 +135,7 @@ function createProjectElement(projectName, projectID) {
     inputCompleted.setAttribute("type", "checkbox");
     inputCompleted.setAttribute("id", "completed");
     inputCompleted.setAttribute("name", "completed");
-    inputCompleted.className = projectID
+    inputCompleted.className = "completed " + projectID
 
     formSubsection.appendChild(labelDueDate);
     formSubsection.appendChild(inputDueDate);
@@ -152,7 +153,7 @@ function createProjectElement(projectName, projectID) {
     textareaDescription.setAttribute("name", "description");
     textareaDescription.setAttribute("cols", "40");
     textareaDescription.setAttribute("rows", "4");
-    textareaDescription.className = projectID
+    textareaDescription.className = "description" + projectID
 
     const addTaskButton = document.createElement("button");
     addTaskButton.setAttribute('type','button')
@@ -182,5 +183,29 @@ function createProjectElement(projectName, projectID) {
 }
 
 //add new task section
+export function createDOMTask(container, taskTitle, dueDate) {
+    // Create button element
+    const button = document.createElement('button');
+    button.className = 'expand-button';
+    button.textContent = "+";
+
+    // Create project task element
+    const task = document.createElement('div');
+    task.className = 'project-task';
+    task.textContent = taskTitle;
+
+    // Create due date task element
+    const dueDateElement = document.createElement('div');
+    dueDateElement.className = 'due-date-task';
+    dueDateElement.textContent = dueDate;
+
+    // Append elements to the container
+    container.appendChild(button);
+    container.appendChild(task);
+    container.appendChild(dueDateElement);
+}
+
+
+
 
 
