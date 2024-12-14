@@ -7,7 +7,7 @@
 // logic toggle completed task
 // change todo priority
 export const projectList = [Project('Today')]
-
+projectList[0]['id']='today'
 export function Project (name) {
     // below already contains default project list Today
     

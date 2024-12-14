@@ -8,7 +8,19 @@ export function addTask(e){
     
     let projectID=newTaskID.split(" ")[1]
     
-    let newTask=Task(projectID, )
+    let inputTitle=document.querySelector('input#task-title.'+ projectID).value
+    let inputDescription=document.querySelector('input#description.' +projectID).value
+    let inputDueDate=document.querySelector('input#due-date.'+ projectID).value
+    let inputPriority=document.querySelector('input#due-date.'+ projectID).value
+    let inputCompleted=document.querySelector('input#completed.'+ projectID).value
+
+    let newTask=Task(projectID, 
+        inputTitle, 
+        inputDescription, 
+        inputDueDate, 
+        inputPriority,
+        inputCompleted
+    )
 }
 
 export function Task(projectID, title, description, dueDate, priority, completed) {

@@ -79,13 +79,14 @@ function createProjectElement(projectName, projectID) {
     const labelTaskTitle = document.createElement("label");
     labelTaskTitle.setAttribute("for", "task-title");
     labelTaskTitle.textContent = "Task Title:";
-    labelTaskTitle.className=projectID
+    
 
     const inputTaskTitle = document.createElement("input");
     inputTaskTitle.setAttribute("type", "text");
     inputTaskTitle.setAttribute("id", "task-title");
     inputTaskTitle.setAttribute("name", "task-title");
     inputTaskTitle.setAttribute("placeholder", "Run 1 mile");
+    inputTaskTitle.className=projectID
 
     const formSubsection = document.createElement("div");
     formSubsection.className = "form-subsection";

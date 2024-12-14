@@ -16,7 +16,7 @@
     </div>
     <div id="content">
         
-         <div class="project Today">
+         <div class="project today">
             <div class="project-header">
                 
                 <p class="project-title">Today's Tasks</p>
@@ -34,24 +34,24 @@
                 <form action="">
                         <p>Add New Task:</p>
                         <label for="task-title">Task Title:</label>
-                        <input type="text" id="task-title" name="task-title" placeholder="Run 1 mile">
+                        <input class="today" type="text" id="task-title" name="task-title" placeholder="Run 1 mile">
                         <div class="form-subsection">
                             <label for="due-date">Due Date:</label>
-                            <input type="date" id="due-date" name="due-date">
+                            <input class="today" type="date" id="due-date" name="due-date">
                             <label for="priority">Priority:</label>
                             
-                            <select name="priority" id="priority">
+                            <select class="today" name="priority" id="priority">
                                 <option value="low">Low</option>
                                 <option value="medium">Medium</option>
                                 <option value="high">High</option>
                             </select>
                             <label for="completed">Completed?</label>
-                            <input type="checkbox" id="completed" name="completed">
+                            <input class="today" type="checkbox" id="completed" name="completed">
                         </div>
                         <label for="description">Description:</label>
-                        <textarea type="text" id="description" name="description" cols="40" rows="4">
+                        <textarea class="today" type="text" id="description" name="description" cols="40" rows="4">
                         </textarea>
-                        <button class="add-task">Add Task</button>
+                        <button class="add-task today">Add Task</button>
                       
                 </form>
             </div>
