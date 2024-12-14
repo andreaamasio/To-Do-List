@@ -2,7 +2,16 @@
 
 import { projectList } from "./projects.js"
 
-export default function Task(projectName, title, description, dueDate, priority, completed) {
+export function addTask(e){
+    
+    let newTaskID = e.currentTarget.getAttribute('class')
+    
+    let projectID=newTaskID.split(" ")[1]
+    
+    let newTask=Task(projectID, )
+}
+
+export function Task(projectID, title, description, dueDate, priority, completed) {
     
     
     const toggleCompleted = function () {

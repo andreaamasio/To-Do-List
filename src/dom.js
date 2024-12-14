@@ -1,4 +1,5 @@
 import { Project, projectList } from "./projects.js"
+import { addTask, Task } from "./tasks.js"
 
 const content=document.querySelector('#content')
 // create new project
@@ -9,17 +10,18 @@ const content=document.querySelector('#content')
 export function askProjectName(){
     let projectName=prompt("How do you call this new project list?", "New Project")
     let newProject = Project(projectName)
-    // console.log(newProject)
+    let projectID = Math.random()*100
+    newProject["id"] = projectID
     projectList.push(newProject)
     console.log(projectList)
-    return createProjectElement(projectName)
+    return createProjectElement(projectName, projectID)
 }
 
 
-function createProjectElement(projectName) {
+function createProjectElement(projectName, projectID) {
     // Create project container
     const projectDiv = document.createElement("div");
-    projectDiv.className = "project " + projectName; // identifier for logic
+    projectDiv.className = "project " + projectID; // identifier for logic
     
     
     // Create project header
@@ -77,6 +79,7 @@ function createProjectElement(projectName) {
     const labelTaskTitle = document.createElement("label");
     labelTaskTitle.setAttribute("for", "task-title");
     labelTaskTitle.textContent = "Task Title:";
+    labelTaskTitle.className=projectID
 
     const inputTaskTitle = document.createElement("input");
     inputTaskTitle.setAttribute("type", "text");
@@ -95,6 +98,7 @@ function createProjectElement(projectName) {
     inputDueDate.setAttribute("type", "date");
     inputDueDate.setAttribute("id", "due-date");
     inputDueDate.setAttribute("name", "due-date");
+    inputDueDate.className = projectID
 
     const labelPriority = document.createElement("label");
     labelPriority.setAttribute("for", "priority");
@@ -103,6 +107,7 @@ function createProjectElement(projectName) {
     const selectPriority = document.createElement("select");
     selectPriority.setAttribute("id", "priority");
     selectPriority.setAttribute("name", "priority");
+    selectPriority.className = projectID
 
     const lowOption = document.createElement("option");
     lowOption.setAttribute("value", "low");
@@ -128,6 +133,7 @@ function createProjectElement(projectName) {
     inputCompleted.setAttribute("type", "checkbox");
     inputCompleted.setAttribute("id", "completed");
     inputCompleted.setAttribute("name", "completed");
+    inputCompleted.className = projectID
 
     formSubsection.appendChild(labelDueDate);
     formSubsection.appendChild(inputDueDate);
@@ -145,10 +151,13 @@ function createProjectElement(projectName) {
     textareaDescription.setAttribute("name", "description");
     textareaDescription.setAttribute("cols", "40");
     textareaDescription.setAttribute("rows", "4");
+    textareaDescription.className = projectID
 
     const addTaskButton = document.createElement("button");
-    addTaskButton.className = "add-task";
+    addTaskButton.setAttribute('type','button')
+    addTaskButton.className = "add-task " + projectID ;
     addTaskButton.textContent = "Add Task";
+    addTaskButton.addEventListener('click',addTask)
 
     // Append elements to the form
     form.appendChild(formHeading);

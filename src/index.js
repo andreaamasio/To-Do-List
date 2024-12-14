@@ -1,6 +1,6 @@
 // import "./style.css"
 import { Project } from "./projects.js"
-import Task from "./tasks.js"
+import { Task } from "./tasks.js"
 import { askProjectName } from "./dom.js"
 import { projectList } from "./projects.js"
 // logic list containing project

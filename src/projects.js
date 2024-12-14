@@ -18,5 +18,5 @@ export function Project (name) {
         taskList.splice(index,1)
     };
     
-    return { name, addToProject, removeFromProject};
+    return { name, taskList, addToProject, removeFromProject};
   }
