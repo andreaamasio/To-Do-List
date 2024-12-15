@@ -1,13 +1,22 @@
 // factory function handle projects
 
-// logic list containing project
-// logic create project
-// logic add task to list project
-// logic remove task from list project
-// logic toggle completed task
-// change todo priority
+import { Task, checkButtonExpandTask } from "./tasks.js";
+
+// initial example setup
 export const projectList = [Project('Today')]
 projectList[0]['id']='today'
+projectList[0].taskList.push(Task('today',
+    'example-task',
+    '1000 steps',
+    'Walk 500 steps before breakfast and 500 after lunch.',
+    'tomorrow',
+    'Low',
+    'No'
+))
+const expandButtonExample=document.querySelector('div#today button#example-task')
+expandButtonExample.addEventListener('click', checkButtonExpandTask)
+
+// project factory function
 export function Project (name) {
     // below already contains default project list Today
     

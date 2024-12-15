@@ -1,7 +1,7 @@
 // factory function handle tasks
 
 import { projectList } from "./projects.js"
-import { createDOMTask, createDOMExpandTask } from "./dom.js"
+import { createDOMTask, createDOMExpandTask, removeDOMExpandTask } from "./dom.js"
 
 export function addTask(e){
     let taskID = 'task-'+ Math.trunc(Math.random()*100000)
@@ -40,27 +40,27 @@ export function checkButtonExpandTask(e){
     let projectID=e.currentTarget.id.split(" ")[0]
     let taskID=e.currentTarget.id.split(" ")[1]
     let projectTarget=getProject(projectID)
-    
-    if (e.currentTarget.textContent = '+') {
-        e.currentTarget.textContent = '-';
-        
+    console.log(`projectID=${projectID}, taskID=${taskID}, projectTarget=${projectTarget}`)
+    if (e.currentTarget.textContent === '+') {
+        e.currentTarget.textContent = '-';        
         expandTask(projectTarget, projectID, taskID)
-    } else {
-        closeExpandTask(projectTarget, projectID, taskID)
-        e.currentTarget.textContent = '+';
+    } else if (e.currentTarget.textContent === '-'){
+        e.currentTarget.textContent = '+'
+        closeExpandTask(projectID, taskID)
+        
     }
 
 }
 export function expandTask(projectTarget, projectID, taskID){
     let taskTarget=getTask(projectTarget, projectID, taskID)
     let inputCompleted=taskTarget.completed
-    let completed= inputCompleted === 'on' ? 'Yes' : 'No'
+    let completed= inputCompleted? 'Yes' : 'No'
     let description=taskTarget.description
     let priority=taskTarget.priority
-    createDOMExpandTask(projectID, completed, description, priority)
+    createDOMExpandTask(projectID, taskID, completed, description, priority)
 }
-export function closeExpandTask(projectTarget, projectID, taskID){
-    
+export function closeExpandTask(projectID, taskID){
+    removeDOMExpandTask(projectID, taskID)
 }
 
 export function getProject(projectID){

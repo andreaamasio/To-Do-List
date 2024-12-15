@@ -28,16 +28,7 @@ import { projectList } from "./projects.js"
 const addTaskButtonExample = document.querySelector("form#today button");
     addTaskButtonExample.addEventListener('click',addTask)
 
-const textarea = document.querySelector('textarea');
 
-        // Add event listener for clicks
-        textarea.addEventListener('click', (event) => {
-            // Move the cursor to the very start of the text
-            textarea.setSelectionRange(0, 0);
-
-            // Prevent the default cursor placement behavior
-            event.preventDefault();
-        });
 
 const newProjectButton=document.querySelector("#new-project-button")
 newProjectButton.addEventListener('click',askProjectName)

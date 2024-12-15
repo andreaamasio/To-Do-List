@@ -155,7 +155,7 @@ function createProjectElement(projectName, projectID) {
     textareaDescription.setAttribute("name", "description");
     textareaDescription.setAttribute("cols", "40");
     textareaDescription.setAttribute("rows", "4");
-    textareaDescription.className = "description" + projectID
+    textareaDescription.className = "description " + projectID
 
     const addTaskButton = document.createElement("button");
     addTaskButton.setAttribute('type','button')
@@ -197,7 +197,7 @@ export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) 
 
     // Create project task element
     const task = document.createElement('div');
-    task.className = 'project-task';
+    task.className = `project-task ${taskID}`;
     task.textContent = taskTitle;
 
     // Create due date task element
@@ -210,9 +210,9 @@ export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) 
     container.appendChild(task);
     container.appendChild(dueDateElement);
 }
-export function createDOMExpandTask(projectID, completed, description, priority){
+export function createDOMExpandTask(projectID, taskID, completed, description, priority){
     const expandedTaskDiv = document.createElement("div");
-    expandedTaskDiv.className = "expanded-task";
+    expandedTaskDiv.className = `expanded-task ${taskID}`;
 
     // Create the first div for "Completed"
     const completedDiv = document.createElement("div");
@@ -241,8 +241,13 @@ export function createDOMExpandTask(projectID, completed, description, priority)
     expandedTaskDiv.appendChild(priorityDiv);
 
     // Append div expanded-task to div project-task
-    const divProjectTask=document.querySelector(`#${projectID} div.project-task`)
+    const divProjectTask=document.querySelector(`#${projectID} div.project-task.${taskID}`)
     divProjectTask.appendChild(expandedTaskDiv)
+}
+export function removeDOMExpandTask(projectID, taskID){
+    let divProjectTask=document.querySelector(`#${projectID} div.project-task.${taskID}`)
+    let expandedTaskDiv=document.querySelector(`div.expanded-task.${taskID}`)
+    divProjectTask.removeChild(expandedTaskDiv)
 }
 
 
