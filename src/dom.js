@@ -1,5 +1,5 @@
 import { Project, projectList } from "./projects.js"
-import { addTask, expandTask, Task } from "./tasks.js"
+import { addTask, checkButtonExpandTask, Task } from "./tasks.js"
 
 const content=document.querySelector('#content')
 // create new project
@@ -186,14 +186,14 @@ function createProjectElement(projectName, projectID) {
 }
 
 //add new task section
-export function createDOMTask(container, taskID, taskTitle, dueDate) {
+export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) {
     // Create button element
     const expandButton = document.createElement('button');
     expandButton.className = 'expand-button';
     expandButton.textContent = "+";
     expandButton.setAttribute('type','button')
-    expandButton.setAttribute('id', taskID)
-    expandButton.addEventListener('click',expandTask)
+    expandButton.setAttribute('id', `${projectID} ${taskID}`)
+    expandButton.addEventListener('click', checkButtonExpandTask)
 
     // Create project task element
     const task = document.createElement('div');
@@ -210,7 +210,40 @@ export function createDOMTask(container, taskID, taskTitle, dueDate) {
     container.appendChild(task);
     container.appendChild(dueDateElement);
 }
+export function createDOMExpandTask(projectID, completed, description, priority){
+    const expandedTaskDiv = document.createElement("div");
+    expandedTaskDiv.className = "expanded-task";
 
+    // Create the first div for "Completed"
+    const completedDiv = document.createElement("div");
+    completedDiv.textContent = `Completed: ${completed}`;
+    const changeCompletedButton = document.createElement("button");
+    changeCompletedButton.textContent = "Change Completed";
+    completedDiv.appendChild(changeCompletedButton);
+
+    // Create the second div for "Description"
+    const descriptionDiv = document.createElement("div");
+    descriptionDiv.textContent = `Description: ${description}`;
+    const changeDescriptionButton = document.createElement("button");
+    changeDescriptionButton.textContent = "Change Description";
+    descriptionDiv.appendChild(changeDescriptionButton);
+
+    // Create the third div for "Priority"
+    const priorityDiv = document.createElement("div");
+    priorityDiv.textContent = `Priority: ${priority}`;
+    const changePriorityButton = document.createElement("button");
+    changePriorityButton.textContent = "Change Priority";
+    priorityDiv.appendChild(changePriorityButton);
+
+    // Append all child divs to the container
+    expandedTaskDiv.appendChild(completedDiv);
+    expandedTaskDiv.appendChild(descriptionDiv);
+    expandedTaskDiv.appendChild(priorityDiv);
+
+    // Append div expanded-task to div project-task
+    const divProjectTask=document.querySelector(`#${projectID} div.project-task`)
+    divProjectTask.appendChild(expandedTaskDiv)
+}
 
 
 

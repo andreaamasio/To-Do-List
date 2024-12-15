@@ -1,7 +1,7 @@
 // factory function handle tasks
 
 import { projectList } from "./projects.js"
-import { createDOMTask } from "./dom.js"
+import { createDOMTask, createDOMExpandTask } from "./dom.js"
 
 export function addTask(e){
     let taskID = 'task-'+ Math.trunc(Math.random()*100000)
@@ -25,22 +25,49 @@ export function addTask(e){
         inputPriority,
         inputCompleted
     )
-    projectList.forEach(project => {
-        if (project.id===projectID){
-            project.addToProject(newTask)
-        }
-    })
+    
+    
+    let projectTarget=getProject(projectID)
+    projectTarget.addToProject(newTask)
+   
     console.log(projectList)
     // add task to project
     let projectContainer=document.querySelector(`div#${projectID} div.project-body`)
-    createDOMTask(projectContainer, taskID, inputTitle, inputDueDate)
+    createDOMTask(projectContainer, projectID, taskID, inputTitle, inputDueDate)
 }
 
-export function expandTask(e){
+export function checkButtonExpandTask(e){
+    let projectID=e.currentTarget.id.split()[0]
+    let taskID=e.currentTarget.id.split()[1]
+    let projectTarget=getProject(projectID)
+    if (e.currentTarget.textContent = '+') {
+        e.currentTarget.textContent = '-';
+        expandTask(projectTarget, projectID, taskID)
+    } else {
+        closeExpandTask(projectTarget, projectID, taskID)
+        e.currentTarget.textContent = '+';
+    }
 
 }
+export function expandTask(projectTarget, projectID, taskID){
+    let taskTarget=getTask(taskID)
+    let completed=taskTarget.completed
+    let description=taskTarget.description
+    let priority=taskTarget.priority
+    createDOMExpandTask(projectID, completed, description, priority)
+}
+export function closeExpandTask(projectTarget, projectID, taskID){
+    
+}
 
-
+export function getProject(projectID){
+    let projectTarget=projectList.find(project => project.id === projectID)
+    return projectTarget
+}
+export function getTask(taskID){
+    let taskTarget=projectList.find(project => project.id === projectID)
+    return taskTarget
+}
 
 export function Task(projectID, taskID, title, description, dueDate, priority, completed) {
     
