@@ -1,6 +1,6 @@
 // import "./style.css"
 import { Project } from "./projects.js"
-import { Task } from "./tasks.js"
+import { Task, addTask } from "./tasks.js"
 import { askProjectName } from "./dom.js"
 import { projectList } from "./projects.js"
 // logic list containing project
@@ -25,7 +25,19 @@ import { projectList } from "./projects.js"
 // const content=document.querySelector('#content')
 // create new project
 
+const addTaskButtonExample = document.querySelector("form#today button");
+    addTaskButtonExample.addEventListener('click',addTask)
 
+const textarea = document.querySelector('textarea');
+
+        // Add event listener for clicks
+        textarea.addEventListener('click', (event) => {
+            // Move the cursor to the very start of the text
+            textarea.setSelectionRange(0, 0);
+
+            // Prevent the default cursor placement behavior
+            event.preventDefault();
+        });
 
 const newProjectButton=document.querySelector("#new-project-button")
 newProjectButton.addEventListener('click',askProjectName)

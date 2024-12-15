@@ -4,7 +4,9 @@ import { projectList } from "./projects.js"
 import { createDOMTask } from "./dom.js"
 
 export function addTask(e){
-    
+    let taskID = 'task-'+ Math.trunc(Math.random()*100000)
+
+
     let newTaskID = e.currentTarget.getAttribute('class')
     
     let projectID=newTaskID.split(" ")[1]
@@ -16,6 +18,7 @@ export function addTask(e){
     let inputCompleted=document.querySelector("form#" + projectID +" #completed").value
 
     let newTask=Task(projectID, 
+        taskID,
         inputTitle, 
         inputDescription, 
         inputDueDate, 
@@ -30,10 +33,16 @@ export function addTask(e){
     console.log(projectList)
     // add task to project
     let projectContainer=document.querySelector(`div#${projectID} div.project-body`)
-    createDOMTask(projectContainer, inputTitle, inputDueDate)
+    createDOMTask(projectContainer, taskID, inputTitle, inputDueDate)
 }
 
-export function Task(projectID, title, description, dueDate, priority, completed) {
+export function expandTask(e){
+
+}
+
+
+
+export function Task(projectID, taskID, title, description, dueDate, priority, completed) {
     
     
     const toggleCompleted = function () {
@@ -41,5 +50,5 @@ export function Task(projectID, title, description, dueDate, priority, completed
     };
     
 
-    return { title, description, dueDate, priority, completed, toggleCompleted};
+    return { projectID, taskID, title, description, dueDate, priority, completed, toggleCompleted};
 }

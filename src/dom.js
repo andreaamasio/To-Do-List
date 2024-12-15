@@ -1,11 +1,13 @@
 import { Project, projectList } from "./projects.js"
-import { addTask, Task } from "./tasks.js"
+import { addTask, expandTask, Task } from "./tasks.js"
 
 const content=document.querySelector('#content')
 // create new project
 
 // const newProjectButton=document.querySelector("#new-project-button")
 // newProjectButton.addEventListener('click',askProjectName)
+
+
 
 export function askProjectName(){
     let projectName=prompt("How do you call this new project list?", "New Project")
@@ -161,6 +163,7 @@ function createProjectElement(projectName, projectID) {
     addTaskButton.textContent = "Add Task";
     addTaskButton.addEventListener('click',addTask)
 
+
     // Append elements to the form
     form.appendChild(formHeading);
     form.appendChild(labelTaskTitle);
@@ -183,11 +186,14 @@ function createProjectElement(projectName, projectID) {
 }
 
 //add new task section
-export function createDOMTask(container, taskTitle, dueDate) {
+export function createDOMTask(container, taskID, taskTitle, dueDate) {
     // Create button element
-    const button = document.createElement('button');
-    button.className = 'expand-button';
-    button.textContent = "+";
+    const expandButton = document.createElement('button');
+    expandButton.className = 'expand-button';
+    expandButton.textContent = "+";
+    expandButton.setAttribute('type','button')
+    expandButton.setAttribute('id', taskID)
+    expandButton.addEventListener('click',expandTask)
 
     // Create project task element
     const task = document.createElement('div');
@@ -200,7 +206,7 @@ export function createDOMTask(container, taskTitle, dueDate) {
     dueDateElement.textContent = dueDate;
 
     // Append elements to the container
-    container.appendChild(button);
+    container.appendChild(expandButton);
     container.appendChild(task);
     container.appendChild(dueDateElement);
 }

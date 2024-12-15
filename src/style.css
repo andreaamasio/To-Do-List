@@ -1,7 +1,8 @@
 * {
     margin: 0;
     padding: 0;
-    list-style-type: none
+    list-style-type: none;
+    box-sizing: border-box
 }
 h1 {
     text-align: center;
@@ -89,4 +90,8 @@ form input {
 form button {
     margin: 5px auto;
 
+}
+textarea {
+    text-align: left;
+    padding: 2px;
 }
