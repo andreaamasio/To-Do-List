@@ -23,6 +23,7 @@ export function askProjectName(){
 function createProjectElement(projectName, projectID) {
     // Create project container
     const projectDiv = document.createElement("div");
+    projectDiv.className = 'project'
     projectDiv.setAttribute("id", projectID); // identifier for logic
     
     
@@ -189,10 +190,10 @@ function createProjectElement(projectName, projectID) {
 export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) {
     // Create button element
     const expandButton = document.createElement('button');
-    expandButton.className = 'expand-button';
+    expandButton.className = `expand-button ${projectID} ${taskID}`;
     expandButton.textContent = "+";
     expandButton.setAttribute('type','button')
-    expandButton.setAttribute('id', `${projectID} ${taskID}`)
+    // expandButton.setAttribute('id', `${projectID} ${taskID}`)
     expandButton.addEventListener('click', checkButtonExpandTask)
 
     // Create project task element
@@ -213,6 +214,8 @@ export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) 
 export function createDOMExpandTask(projectID, taskID, completed, description, priority){
     const expandedTaskDiv = document.createElement("div");
     expandedTaskDiv.className = `expanded-task ${taskID}`;
+    
+    
 
     // Create the first div for "Completed"
     const completedDiv = document.createElement("div");
@@ -227,17 +230,58 @@ export function createDOMExpandTask(projectID, taskID, completed, description, p
     const changeDescriptionButton = document.createElement("button");
     changeDescriptionButton.textContent = "Change Description";
     descriptionDiv.appendChild(changeDescriptionButton);
+    // Create button to modify title
+    const inputModifyTaskTitle = document.createElement("input");
+    inputModifyTaskTitle.setAttribute("type", "text");
+    inputModifyTaskTitle.setAttribute("id", "modify-task-title");
+    // inputModifyTaskTitle.setAttribute("name", "task-title");
+    inputModifyTaskTitle.className = "due-date-modify " + taskID
+    const changeTitleButton = document.createElement("button");
+    changeTitleButton.textContent = "Change Task Title";
+    descriptionDiv.appendChild(changeTitleButton)
+
+    // due date
+    const inputModifyDueDate = document.createElement("input");
+    inputModifyDueDate.setAttribute("type", "date");
+    inputModifyDueDate.setAttribute("id", "modify-due-date");
+    // inputModifyDueDate.setAttribute("name", "due-date");
+    inputModifyDueDate.className = "due-date-modify " + taskID
+    const changeDueDateButton = document.createElement("button");
+    changeDueDateButton.textContent = "Change Due Date";
+    descriptionDiv.appendChild(inputModifyDueDate)
+    descriptionDiv.appendChild(changeDueDateButton)
 
     // Create the third div for "Priority"
     const priorityDiv = document.createElement("div");
     priorityDiv.textContent = `Priority: ${priority}`;
+    const modifySelectPriority = document.createElement("select");
+    modifySelectPriority.setAttribute("id", "priority");
+    modifySelectPriority.setAttribute("name", "priority");
+    modifySelectPriority.className = "priority " + projectID
+
+    const lowOption = document.createElement("option");
+    lowOption.setAttribute("value", "low");
+    lowOption.textContent = "Low";
+
+    const mediumOption = document.createElement("option");
+    mediumOption.setAttribute("value", "medium");
+    mediumOption.textContent = "Medium";
+
+    const highOption = document.createElement("option");
+    highOption.setAttribute("value", "high");
+    highOption.textContent = "High";
+
+    modifySelectPriority.appendChild(lowOption);
+    modifySelectPriority.appendChild(mediumOption);
+    modifySelectPriority.appendChild(highOption);
     const changePriorityButton = document.createElement("button");
     changePriorityButton.textContent = "Change Priority";
+    priorityDiv.appendChild(modifySelectPriority);
     priorityDiv.appendChild(changePriorityButton);
 
     // Append all child divs to the container
-    expandedTaskDiv.appendChild(completedDiv);
     expandedTaskDiv.appendChild(descriptionDiv);
+    expandedTaskDiv.appendChild(completedDiv);    
     expandedTaskDiv.appendChild(priorityDiv);
 
     // Append div expanded-task to div project-task

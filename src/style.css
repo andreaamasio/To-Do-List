@@ -4,8 +4,12 @@
     list-style-type: none;
     box-sizing: border-box
 }
+body {
+    background-color: cadetblue;
+}
 h1 {
     text-align: center;
+    background-color: white;
 }
 .div-button-new-project{
     display: grid;
@@ -35,13 +39,15 @@ h1 {
     outline: 1px solid grey;
     padding: 3px;
     display: grid;    
-    grid-template-rows: 0.2fr 1fr;    
+    grid-template-rows: 0.2fr 1fr;  
+    background-color: white;  
 }
 
 .project-title {
     text-align: center;
     font-weight: bold;
-    font-size: 1.8rem;    
+    font-size: 1.8rem;   
+   
 }
 .project-body{
     display: grid;

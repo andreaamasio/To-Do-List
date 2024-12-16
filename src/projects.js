@@ -13,7 +13,7 @@ projectList[0].taskList.push(Task('today',
     'Low',
     'No'
 ))
-const expandButtonExample=document.querySelector('div#today button#example-task')
+const expandButtonExample=document.querySelector('div#today .example-task')
 expandButtonExample.addEventListener('click', checkButtonExpandTask)
 
 // project factory function

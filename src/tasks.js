@@ -1,11 +1,8 @@
-// factory function handle tasks
-
 import { projectList } from "./projects.js"
 import { createDOMTask, createDOMExpandTask, removeDOMExpandTask } from "./dom.js"
 
 export function addTask(e){
     let taskID = 'task-'+ Math.trunc(Math.random()*100000)
-
 
     let newTaskID = e.currentTarget.getAttribute('class')
     
@@ -24,30 +21,26 @@ export function addTask(e){
         inputDueDate, 
         inputPriority,
         inputCompleted
-    )
-    
+    )    
     
     let projectTarget=getProject(projectID)
-    projectTarget.addToProject(newTask)
-   
-    console.log(projectList)
-    // add task to project
+    projectTarget.addToProject(newTask)   
+    
     let projectContainer=document.querySelector(`div#${projectID} div.project-body`)
     createDOMTask(projectContainer, projectID, taskID, inputTitle, inputDueDate)
 }
 
 export function checkButtonExpandTask(e){
-    let projectID=e.currentTarget.id.split(" ")[0]
-    let taskID=e.currentTarget.id.split(" ")[1]
+    let projectID=e.currentTarget.classList[1]
+    let taskID=e.currentTarget.classList[2]
     let projectTarget=getProject(projectID)
-    console.log(`projectID=${projectID}, taskID=${taskID}, projectTarget=${projectTarget}`)
+
     if (e.currentTarget.textContent === '+') {
         e.currentTarget.textContent = '-';        
         expandTask(projectTarget, projectID, taskID)
     } else if (e.currentTarget.textContent === '-'){
         e.currentTarget.textContent = '+'
-        closeExpandTask(projectID, taskID)
-        
+        closeExpandTask(projectID, taskID)        
     }
 
 }
@@ -67,24 +60,22 @@ export function getProject(projectID){
     let projectTarget=projectList.find(project => project.id === projectID)
     return projectTarget
 }
-export function getTask(projectTarget, projectID, taskID){
-    
+export function getTask(projectTarget, projectID, taskID){    
     let taskList=projectTarget.taskList    
     console.log(taskList)
-
     let taskTarget=taskList.find(task => task.taskID === taskID)
-    
-
     return taskTarget
 }
 
+// factory function handle tasks
 export function Task(projectID, taskID, title, description, dueDate, priority, completed) {
-    
-    
     const toggleCompleted = function () {
         this.completed = !this.completed;
-    };
-    
+    };    
 
     return { projectID, taskID, title, description, dueDate, priority, completed, toggleCompleted};
+}
+
+export function modifyTask(e){
+    
 }
