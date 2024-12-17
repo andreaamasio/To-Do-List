@@ -3,6 +3,7 @@
 import { Task, checkButtonExpandTask, getProject, getTask } from "./tasks.js";
 
 // initial example setup
+
 export const projectList = [Project('Today')]
 projectList[0]['id']='today'
 projectList[0].taskList.push(Task('today',
