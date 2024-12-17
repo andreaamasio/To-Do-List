@@ -1,4 +1,4 @@
-import { Project, projectList } from "./projects.js"
+import { Project, projectList, modifyProjectName, deleteProject  } from "./projects.js"
 import { addTask, checkButtonExpandTask, Task, modifyTask } from "./tasks.js"
 
 const content=document.querySelector('#content')
@@ -36,12 +36,16 @@ function createProjectElement(projectName, projectID) {
     projectTitle.textContent = projectName;
 
     const modifyButton = document.createElement("button");
-    modifyButton.className = "modify-project-name";
+    modifyButton.className = `modify-project-name ${projectID}`;
+    
     modifyButton.textContent = "Modify Project Name";
+    modifyButton.addEventListener('click', modifyProjectName)
 
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-project";
     deleteButton.textContent = "Delete Project";
+    
+   
 
     // Append elements to project header
     projectHeader.appendChild(projectTitle);
@@ -184,6 +188,14 @@ function createProjectElement(projectName, projectID) {
 
     // Add project container to the content div
     content.appendChild(projectDiv);
+    // handle delete project
+    deleteButton.addEventListener('click', ()=>{
+        if (confirm('Are you sure you want to delete this project?')) {
+            content.removeChild(projectDiv)
+            deleteProject(projectID)            
+          } 
+        
+    } )
 }
 
 //add new task section
@@ -333,9 +345,29 @@ export function createDOMExpandTask(projectTarget, projectID, taskID, title, due
     // Append the "Update Task" button
     expandedTaskDiv.appendChild(updateButton);
 
+    // Create "Delete Task" button
+    const deleteTaskButton = document.createElement("button");
+    deleteTaskButton.textContent = "Delete This Task";
+    deleteTaskButton.className = "delete-task-button";
+    
+
+    // Append the "Update Task" button
+    expandedTaskDiv.appendChild(deleteTaskButton);
+
     // Append the main container to the DOM
     const divProjectTask = document.querySelector(`#${projectID} div.project-task.${taskID}`);
     divProjectTask.appendChild(expandedTaskDiv);
+
+    deleteTaskButton.addEventListener('click', ()=>{
+        const expandButton=document.querySelector(`button.expand-button.${taskID}`)
+        const taskTitleDiv=document.querySelector(`div#project-title-${taskID}`)
+        const taskDueDateDiv=document.querySelector(`div#due-date-${taskID}`)
+        const projectBody=document.querySelector(`div#${projectID} div.project-body`)
+        projectBody.removeChild(expandButton)
+        projectBody.removeChild(taskTitleDiv)
+        projectBody.removeChild(taskDueDateDiv)
+        removeDOMExpandTask(projectID, taskID)
+    })
 }
 
 export function removeDOMExpandTask(projectID, taskID) {
