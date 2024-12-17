@@ -7,7 +7,7 @@ export const projectList = [Project('Today')]
 projectList[0]['id']='today'
 projectList[0].taskList.push(Task('today',
     'example-task',
-    '1000 steps',
+    'Example: 1000 steps',
     'Walk 500 steps before breakfast and 500 after lunch.',
     'tomorrow',
     'Low',

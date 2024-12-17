@@ -1,5 +1,5 @@
 import { Project, projectList } from "./projects.js"
-import { addTask, checkButtonExpandTask, Task } from "./tasks.js"
+import { addTask, checkButtonExpandTask, Task, modifyTask } from "./tasks.js"
 
 const content=document.querySelector('#content')
 // create new project
@@ -199,7 +199,11 @@ export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) 
     // Create project task element
     const task = document.createElement('div');
     task.className = `project-task ${taskID}`;
-    task.textContent = taskTitle;
+    const taskTitleDiv=document.createElement('div')
+    taskTitleDiv.className='project-task'
+    taskTitleDiv.setAttribute('id',`project-title-${taskID}`)
+    taskTitleDiv.textContent = taskTitle;
+    task.appendChild(taskTitleDiv)
 
     // Create due date task element
     const dueDateElement = document.createElement('div');
@@ -211,89 +215,296 @@ export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) 
     container.appendChild(task);
     container.appendChild(dueDateElement);
 }
-export function createDOMExpandTask(projectID, taskID, completed, description, priority){
+// original version
+// export function createDOMExpandTask(projectID, taskID, completed, description, priority){
+//     const expandedTaskDiv = document.createElement("div");
+//     expandedTaskDiv.className = `expanded-task ${taskID}`;
+    
+    
+
+//     // Create the first div for "Completed"
+//     const completedDiv = document.createElement("div");
+//     completedDiv.textContent = `Completed: ${completed}`;
+//     const changeCompletedButton = document.createElement("button");
+//     changeCompletedButton.textContent = "Change Completed";
+//     completedDiv.appendChild(changeCompletedButton);
+
+//     // Create the second div for "Description"
+//     const descriptionDiv = document.createElement("div");
+//     descriptionDiv.textContent = `Description: ${description}`;
+//     const changeDescriptionButton = document.createElement("button");
+//     changeDescriptionButton.textContent = "Change Description";
+//     descriptionDiv.appendChild(changeDescriptionButton);
+//     // Create button to modify title
+//     const inputModifyTaskTitle = document.createElement("input");
+//     inputModifyTaskTitle.setAttribute("type", "text");
+//     inputModifyTaskTitle.setAttribute("id", "modify-task-title");
+//     // inputModifyTaskTitle.setAttribute("name", "task-title");
+//     inputModifyTaskTitle.className = "due-date-modify " + taskID
+//     const changeTitleButton = document.createElement("button");
+//     changeTitleButton.textContent = "Change Task Title";
+//     descriptionDiv.appendChild(changeTitleButton)
+
+//     // due date
+//     const inputModifyDueDate = document.createElement("input");
+//     inputModifyDueDate.setAttribute("type", "date");
+//     inputModifyDueDate.setAttribute("id", "modify-due-date");
+//     // inputModifyDueDate.setAttribute("name", "due-date");
+//     inputModifyDueDate.className = "due-date-modify " + taskID
+//     const changeDueDateButton = document.createElement("button");
+//     changeDueDateButton.textContent = "Change Due Date";
+//     descriptionDiv.appendChild(inputModifyDueDate)
+//     descriptionDiv.appendChild(changeDueDateButton)
+
+//     // Create the third div for "Priority"
+//     const priorityDiv = document.createElement("div");
+//     priorityDiv.textContent = `Priority: ${priority}`;
+//     const modifySelectPriority = document.createElement("select");
+//     modifySelectPriority.setAttribute("id", "priority");
+//     modifySelectPriority.setAttribute("name", "priority");
+//     modifySelectPriority.className = "priority " + projectID
+
+//     const lowOption = document.createElement("option");
+//     lowOption.setAttribute("value", "low");
+//     lowOption.textContent = "Low";
+
+//     const mediumOption = document.createElement("option");
+//     mediumOption.setAttribute("value", "medium");
+//     mediumOption.textContent = "Medium";
+
+//     const highOption = document.createElement("option");
+//     highOption.setAttribute("value", "high");
+//     highOption.textContent = "High";
+
+//     modifySelectPriority.appendChild(lowOption);
+//     modifySelectPriority.appendChild(mediumOption);
+//     modifySelectPriority.appendChild(highOption);
+//     const changePriorityButton = document.createElement("button");
+//     changePriorityButton.textContent = "Change Priority";
+//     priorityDiv.appendChild(modifySelectPriority);
+//     priorityDiv.appendChild(changePriorityButton);
+
+//     // Append all child divs to the container
+//     expandedTaskDiv.appendChild(descriptionDiv);
+//     expandedTaskDiv.appendChild(completedDiv);    
+//     expandedTaskDiv.appendChild(priorityDiv);
+
+//     // Append div expanded-task to div project-task
+//     const divProjectTask=document.querySelector(`#${projectID} div.project-task.${taskID}`)
+//     divProjectTask.appendChild(expandedTaskDiv)
+// }
+// export function removeDOMExpandTask(projectID, taskID){
+//     let divProjectTask=document.querySelector(`#${projectID} div.project-task.${taskID}`)
+//     let expandedTaskDiv=document.querySelector(`div.expanded-task.${taskID}`)
+//     divProjectTask.removeChild(expandedTaskDiv)
+// }
+
+// chatgpt version 1.0
+// export function createDOMExpandTask(projectID, taskID, title, completed, description, priority) {
+//     const expandedTaskDiv = document.createElement("div");
+//     expandedTaskDiv.className = `expanded-task ${taskID}`;
+
+//     // Helper function to create a row with input and button
+//     function createRow(labelText, inputType, inputValue, inputId, buttonText) {
+//         const rowDiv = document.createElement("div");
+
+//         // Create label
+//         const label = document.createElement("label");
+//         label.textContent = labelText;
+//         label.setAttribute("for", inputId);
+
+//         // Create input
+//         const input = document.createElement("input");
+//         input.setAttribute("type", inputType);
+//         input.setAttribute("id", inputId);
+//         input.value = inputValue;
+
+//         // Create button
+//         const button = document.createElement("button");
+//         button.textContent = buttonText;
+
+//         // Append elements
+//         rowDiv.appendChild(label);
+//         rowDiv.appendChild(input);
+//         rowDiv.appendChild(button);
+
+//         return rowDiv;
+//     }
+
+//     // Create "Task Title" input and button
+//     const titleRow = createRow("Task Title: ", "text", title, `task-title-${taskID}`, "Change Title");
+
+//     // Create "Task Description" input and button
+//     const descriptionRow = createRow("Description: ", "text", description, `task-desc-${taskID}`, "Change Description");
+
+//     // Create "Task Due Date" input and button
+//     const dueDateRow = createRow("Due Date: ", "date", "", `task-due-${taskID}`, "Change Due Date");
+
+//     // Create "Task Completed" input and button
+//     const completedRow = createRow("Completed: ", "checkbox", completed, `task-completed-${taskID}`, "Change Completed");
+//     completedRow.querySelector("input").checked = completed; // Set the checkbox state
+
+//     // Create "Task Priority" dropdown and button
+//     const priorityRow = document.createElement("div");
+
+//     const priorityLabel = document.createElement("label");
+//     priorityLabel.textContent = "Priority: ";
+//     priorityLabel.setAttribute("for", `priority-${taskID}`);
+
+//     const prioritySelect = document.createElement("select");
+//     prioritySelect.setAttribute("id", `priority-${taskID}`);
+//     prioritySelect.setAttribute("name", "priority");
+
+//     // Create priority options
+//     ["low", "medium", "high"].forEach((level) => {
+//         const option = document.createElement("option");
+//         option.value = level;
+//         option.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+//         if (level === priority) option.selected = true;
+//         prioritySelect.appendChild(option);
+//     });
+
+//     const priorityButton = document.createElement("button");
+//     priorityButton.textContent = "Change Priority";
+
+//     priorityRow.appendChild(priorityLabel);
+//     priorityRow.appendChild(prioritySelect);
+//     priorityRow.appendChild(priorityButton);
+
+//     // Append all rows to the main container
+//     expandedTaskDiv.appendChild(titleRow);
+//     expandedTaskDiv.appendChild(descriptionRow);
+//     expandedTaskDiv.appendChild(dueDateRow);
+//     expandedTaskDiv.appendChild(completedRow);
+//     expandedTaskDiv.appendChild(priorityRow);
+
+//     // Append the main container to the DOM
+//     const divProjectTask = document.querySelector(`#${projectID} div.project-task.${taskID}`);
+//     divProjectTask.appendChild(expandedTaskDiv);
+// }
+
+// export function removeDOMExpandTask(projectID, taskID) {
+//     const divProjectTask = document.querySelector(`#${projectID} div.project-task.${taskID}`);
+//     const expandedTaskDiv = document.querySelector(`div.expanded-task.${taskID}`);
+//     divProjectTask.removeChild(expandedTaskDiv);
+// }
+export function createDOMExpandTask(projectID, taskID, title, completed, description, priority) {
     const expandedTaskDiv = document.createElement("div");
     expandedTaskDiv.className = `expanded-task ${taskID}`;
-    
-    
 
-    // Create the first div for "Completed"
-    const completedDiv = document.createElement("div");
-    completedDiv.textContent = `Completed: ${completed}`;
-    const changeCompletedButton = document.createElement("button");
-    changeCompletedButton.textContent = "Change Completed";
-    completedDiv.appendChild(changeCompletedButton);
+    // Helper function to create a row with an input
+    function createRow(labelText, inputType, inputValue, inputId) {
+        const rowDiv = document.createElement("div");
 
-    // Create the second div for "Description"
-    const descriptionDiv = document.createElement("div");
-    descriptionDiv.textContent = `Description: ${description}`;
-    const changeDescriptionButton = document.createElement("button");
-    changeDescriptionButton.textContent = "Change Description";
-    descriptionDiv.appendChild(changeDescriptionButton);
-    // Create button to modify title
-    const inputModifyTaskTitle = document.createElement("input");
-    inputModifyTaskTitle.setAttribute("type", "text");
-    inputModifyTaskTitle.setAttribute("id", "modify-task-title");
-    // inputModifyTaskTitle.setAttribute("name", "task-title");
-    inputModifyTaskTitle.className = "due-date-modify " + taskID
-    const changeTitleButton = document.createElement("button");
-    changeTitleButton.textContent = "Change Task Title";
-    descriptionDiv.appendChild(changeTitleButton)
+        // Create label
+        const label = document.createElement("label");
+        label.textContent = labelText;
+        label.setAttribute("for", inputId);
 
-    // due date
-    const inputModifyDueDate = document.createElement("input");
-    inputModifyDueDate.setAttribute("type", "date");
-    inputModifyDueDate.setAttribute("id", "modify-due-date");
-    // inputModifyDueDate.setAttribute("name", "due-date");
-    inputModifyDueDate.className = "due-date-modify " + taskID
-    const changeDueDateButton = document.createElement("button");
-    changeDueDateButton.textContent = "Change Due Date";
-    descriptionDiv.appendChild(inputModifyDueDate)
-    descriptionDiv.appendChild(changeDueDateButton)
+        // Create input
+        const input = document.createElement("input");
+        input.setAttribute("type", inputType);
+        input.setAttribute("id", inputId);
+        input.value = inputValue;
 
-    // Create the third div for "Priority"
-    const priorityDiv = document.createElement("div");
-    priorityDiv.textContent = `Priority: ${priority}`;
-    const modifySelectPriority = document.createElement("select");
-    modifySelectPriority.setAttribute("id", "priority");
-    modifySelectPriority.setAttribute("name", "priority");
-    modifySelectPriority.className = "priority " + projectID
+        if (inputType === "checkbox") {
+            input.checked = inputValue; // Set checkbox state
+        }
 
-    const lowOption = document.createElement("option");
-    lowOption.setAttribute("value", "low");
-    lowOption.textContent = "Low";
+        // Append elements
+        rowDiv.appendChild(label);
+        rowDiv.appendChild(input);
 
-    const mediumOption = document.createElement("option");
-    mediumOption.setAttribute("value", "medium");
-    mediumOption.textContent = "Medium";
+        return rowDiv;
+    }
 
-    const highOption = document.createElement("option");
-    highOption.setAttribute("value", "high");
-    highOption.textContent = "High";
+    // Create "Task Title" input
+    const titleRow = createRow("Task Title: ", "text", title, `task-title-${taskID}`);
 
-    modifySelectPriority.appendChild(lowOption);
-    modifySelectPriority.appendChild(mediumOption);
-    modifySelectPriority.appendChild(highOption);
-    const changePriorityButton = document.createElement("button");
-    changePriorityButton.textContent = "Change Priority";
-    priorityDiv.appendChild(modifySelectPriority);
-    priorityDiv.appendChild(changePriorityButton);
+    // Create "Task Description" input
+    const descriptionRow = createRow("Description: ", "text", description, `task-desc-${taskID}`);
 
-    // Append all child divs to the container
-    expandedTaskDiv.appendChild(descriptionDiv);
-    expandedTaskDiv.appendChild(completedDiv);    
-    expandedTaskDiv.appendChild(priorityDiv);
+    // Create "Task Due Date" input
+    const dueDateRow = createRow("Due Date: ", "date", "", `task-due-${taskID}`);
 
-    // Append div expanded-task to div project-task
-    const divProjectTask=document.querySelector(`#${projectID} div.project-task.${taskID}`)
-    divProjectTask.appendChild(expandedTaskDiv)
+    // Create "Task Completed" input
+    const completedRow = createRow("Completed: ", "checkbox", completed, `task-completed-${taskID}`);
+
+    // Create "Task Priority" dropdown
+    const priorityRow = document.createElement("div");
+
+    const priorityLabel = document.createElement("label");
+    priorityLabel.textContent = "Priority: ";
+    priorityLabel.setAttribute("for", `priority-${taskID}`);
+
+    const prioritySelect = document.createElement("select");
+    prioritySelect.setAttribute("id", `priority-${taskID}`);
+    prioritySelect.setAttribute("name", "priority");
+
+    // Create priority options
+    ["low", "medium", "high"].forEach((level) => {
+        const option = document.createElement("option");
+        option.value = level;
+        option.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+        if (level === priority) option.selected = true;
+        prioritySelect.appendChild(option);
+    });
+
+    priorityRow.appendChild(priorityLabel);
+    priorityRow.appendChild(prioritySelect);
+
+    // Create "Update Task" button
+    const updateButton = document.createElement("button");
+    updateButton.textContent = "Update Task";
+    updateButton.className = "update-task-button";
+
+    // Event listener for the "Update Task" button
+    updateButton.addEventListener("click", () => {
+        const updatedTitle = document.querySelector(`#task-title-${taskID}`).value;
+        const updatedDescription = document.querySelector(`#task-desc-${taskID}`).value;
+        const updatedDueDate = document.querySelector(`#task-due-${taskID}`).value;
+        const updatedCompleted = document.querySelector(`#task-completed-${taskID}`).checked;
+        const updatedPriority = document.querySelector(`#priority-${taskID}`).value;
+
+        // Update task logic (replace with your update function)
+        console.log(`Task ${taskID} updated:`);
+        console.log(`Title: ${updatedTitle}`);
+        console.log(`Description: ${updatedDescription}`);
+        console.log(`Due Date: ${updatedDueDate}`);
+        console.log(`Completed: ${updatedCompleted}`);
+        console.log(`Priority: ${updatedPriority}`);
+        let taskTitleDiv=document.querySelector(`div#project-title-${taskID}`)
+        taskTitleDiv.textContent=updatedTitle
+        modifyTask(
+            updatedTitle,
+            updatedDescription,
+            updatedDueDate,
+            updatedCompleted,
+            updatedPriority
+        )
+        
+        // Optionally, update the DOM to reflect changes
+    });
+
+    // Append all rows to the main container
+    expandedTaskDiv.appendChild(titleRow);
+    expandedTaskDiv.appendChild(descriptionRow);
+    expandedTaskDiv.appendChild(dueDateRow);
+    expandedTaskDiv.appendChild(completedRow);
+    expandedTaskDiv.appendChild(priorityRow);
+
+    // Append the "Update Task" button
+    expandedTaskDiv.appendChild(updateButton);
+
+    // Append the main container to the DOM
+    const divProjectTask = document.querySelector(`#${projectID} div.project-task.${taskID}`);
+    divProjectTask.appendChild(expandedTaskDiv);
 }
-export function removeDOMExpandTask(projectID, taskID){
-    let divProjectTask=document.querySelector(`#${projectID} div.project-task.${taskID}`)
-    let expandedTaskDiv=document.querySelector(`div.expanded-task.${taskID}`)
-    divProjectTask.removeChild(expandedTaskDiv)
+
+export function removeDOMExpandTask(projectID, taskID) {
+    const divProjectTask = document.querySelector(`#${projectID} div.project-task.${taskID}`);
+    const expandedTaskDiv = document.querySelector(`div.expanded-task.${taskID}`);
+    divProjectTask.removeChild(expandedTaskDiv);
 }
-
-
 
 
