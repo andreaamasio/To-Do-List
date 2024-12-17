@@ -46,11 +46,13 @@ export function checkButtonExpandTask(e){
 }
 export function expandTask(projectTarget, projectID, taskID){
     let taskTarget=getTask(projectTarget, projectID, taskID)
+    let title=taskTarget.title
+    let dueDate=taskTarget.dueDate
     let inputCompleted=taskTarget.completed
     let completed= inputCompleted? 'Yes' : 'No'
     let description=taskTarget.description
     let priority=taskTarget.priority
-    createDOMExpandTask(projectID, taskID, completed, description, priority)
+    createDOMExpandTask(projectTarget, projectID, taskID, title, dueDate, completed, description, priority)
 }
 export function closeExpandTask(projectID, taskID){
     removeDOMExpandTask(projectID, taskID)
@@ -62,7 +64,7 @@ export function getProject(projectID){
 }
 export function getTask(projectTarget, projectID, taskID){    
     let taskList=projectTarget.taskList    
-    console.log(taskList)
+    // console.log(taskList)
     let taskTarget=taskList.find(task => task.taskID === taskID)
     return taskTarget
 }
@@ -76,6 +78,20 @@ export function Task(projectID, taskID, title, description, dueDate, priority, c
     return { projectID, taskID, title, description, dueDate, priority, completed, toggleCompleted};
 }
 
-export function modifyTask(e){
-    
+export function modifyTask(
+    projectTarget,
+    projectID,
+    taskID,
+    updatedTitle,
+    updatedDescription,
+    updatedDueDate,
+    updatedCompleted,
+    updatedPriority
+){
+    let taskTarget=getTask(projectTarget, projectID, taskID)
+    taskTarget.title=updatedTitle
+    taskTarget.description=updatedDescription
+    taskTarget.dueDate=updatedDueDate
+    taskTarget.completed=updatedCompleted
+    taskTarget.priority=updatedPriority
 }

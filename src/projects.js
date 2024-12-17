@@ -9,7 +9,7 @@ projectList[0].taskList.push(Task('today',
     'example-task',
     'Example: 1000 steps',
     'Walk 500 steps before breakfast and 500 after lunch.',
-    'tomorrow',
+    '2024-12-15',
     'Low',
     'No'
 ))

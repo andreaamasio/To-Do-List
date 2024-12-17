@@ -208,6 +208,7 @@ export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) 
     // Create due date task element
     const dueDateElement = document.createElement('div');
     dueDateElement.className = 'due-date-task';
+    dueDateElement.setAttribute('id',`due-date-${taskID}`)
     dueDateElement.textContent = dueDate;
 
     // Append elements to the container
@@ -388,7 +389,7 @@ export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) 
 //     const expandedTaskDiv = document.querySelector(`div.expanded-task.${taskID}`);
 //     divProjectTask.removeChild(expandedTaskDiv);
 // }
-export function createDOMExpandTask(projectID, taskID, title, completed, description, priority) {
+export function createDOMExpandTask(projectTarget, projectID, taskID, title, dueDate, completed, description, priority) {
     const expandedTaskDiv = document.createElement("div");
     expandedTaskDiv.className = `expanded-task ${taskID}`;
 
@@ -425,7 +426,7 @@ export function createDOMExpandTask(projectID, taskID, title, completed, descrip
     const descriptionRow = createRow("Description: ", "text", description, `task-desc-${taskID}`);
 
     // Create "Task Due Date" input
-    const dueDateRow = createRow("Due Date: ", "date", "", `task-due-${taskID}`);
+    const dueDateRow = createRow("Due Date: ", "date", dueDate, `task-due-${taskID}`);
 
     // Create "Task Completed" input
     const completedRow = createRow("Completed: ", "checkbox", completed, `task-completed-${taskID}`);
@@ -473,9 +474,16 @@ export function createDOMExpandTask(projectID, taskID, title, completed, descrip
         console.log(`Due Date: ${updatedDueDate}`);
         console.log(`Completed: ${updatedCompleted}`);
         console.log(`Priority: ${updatedPriority}`);
+        // real time update task title
         let taskTitleDiv=document.querySelector(`div#project-title-${taskID}`)
         taskTitleDiv.textContent=updatedTitle
+        // real time update task due date
+        let taskDueDateDiv=document.querySelector(`div#due-date-${taskID}`) 
+        taskDueDateDiv.textContent=updatedDueDate
         modifyTask(
+            projectTarget,
+            projectID,
+            taskID,
             updatedTitle,
             updatedDescription,
             updatedDueDate,
