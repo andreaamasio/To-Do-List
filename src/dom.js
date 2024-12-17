@@ -1,5 +1,5 @@
 import { Project, projectList, modifyProjectName, deleteProject  } from "./projects.js"
-import { addTask, checkButtonExpandTask, Task, modifyTask } from "./tasks.js"
+import { addTask, checkButtonExpandTask, Task, modifyTask, removeTask } from "./tasks.js"
 
 const content=document.querySelector('#content')
 // create new project
@@ -360,13 +360,15 @@ export function createDOMExpandTask(projectTarget, projectID, taskID, title, due
 
     deleteTaskButton.addEventListener('click', ()=>{
         const expandButton=document.querySelector(`button.expand-button.${taskID}`)
-        const taskTitleDiv=document.querySelector(`div#project-title-${taskID}`)
+        // const taskTitleDiv=document.querySelector(`div#project-task.${taskID}`)
+        const taskTitleDiv=document.querySelector(`div.project-task.${taskID}`)
         const taskDueDateDiv=document.querySelector(`div#due-date-${taskID}`)
         const projectBody=document.querySelector(`div#${projectID} div.project-body`)
+        removeDOMExpandTask(projectID, taskID)
         projectBody.removeChild(expandButton)
         projectBody.removeChild(taskTitleDiv)
         projectBody.removeChild(taskDueDateDiv)
-        removeDOMExpandTask(projectID, taskID)
+        removeTask(projectTarget, projectID, taskID)
     })
 }
 

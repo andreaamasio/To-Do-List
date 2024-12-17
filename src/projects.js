@@ -1,6 +1,6 @@
 // factory function handle projects
 
-import { Task, checkButtonExpandTask, getProject } from "./tasks.js";
+import { Task, checkButtonExpandTask, getProject, getTask } from "./tasks.js";
 
 // initial example setup
 export const projectList = [Project('Today')]
@@ -24,12 +24,9 @@ export function Project (name) {
     
     const taskList=[]
     const addToProject = (task) => taskList.push(task);
-    const removeFromProject = (task) => {
-        let index = taskList.indexOf(task)
-        taskList.splice(index,1)
-    };
     
-    return { name, taskList, addToProject, removeFromProject};
+    
+    return { name, taskList, addToProject};
   }
 
 export function modifyProjectName(e){

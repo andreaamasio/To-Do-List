@@ -64,7 +64,7 @@ export function getProject(projectID){
 }
 export function getTask(projectTarget, projectID, taskID){    
     let taskList=projectTarget.taskList    
-    // console.log(taskList)
+    
     let taskTarget=taskList.find(task => task.taskID === taskID)
     return taskTarget
 }
@@ -94,4 +94,10 @@ export function modifyTask(
     taskTarget.dueDate=updatedDueDate
     taskTarget.completed=updatedCompleted
     taskTarget.priority=updatedPriority
+}
+export function removeTask(projectTarget, projectID, taskID){    
+    let taskTarget=getTask(projectTarget, projectID, taskID)
+    let indexToRemove=projectTarget.taskList.indexOf(taskTarget)
+    projectTarget.taskList.splice(indexToRemove,1)
+    
 }
