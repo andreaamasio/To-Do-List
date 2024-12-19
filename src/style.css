@@ -1,103 +1,100 @@
 * {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    box-sizing: border-box
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  box-sizing: border-box;
 }
 body {
-    background-color: cadetblue;
+  background-color: cadetblue;
 }
 h1 {
-    text-align: center;
-    background-color: white;
+  text-align: center;
+  background-color: white;
 }
-.div-button-new-project{
-    display: grid;
+.div-button-new-project {
+  display: grid;
 }
 #new-project-button {
-    margin: 20px auto;
-    font-size: 1.2rem;
+  margin: 20px auto;
+  font-size: 1.2rem;
 }
-.project-header{
-    display: grid;
-    justify-content: space-around;
-    margin: 20px;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr;
+.project-header {
+  display: grid;
+  justify-content: space-around;
+  margin: 20px;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
 }
 .delete-project {
-    grid-column-start: 2;
+  grid-column-start: 2;
 }
 #content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    font-size: 1.2rem;
-    gap: 50px;
-    padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  font-size: 1.2rem;
+  gap: 50px;
+  padding: 10px;
 }
 .project {
-    outline: 1px solid grey;
-    padding: 3px;
-    display: grid;    
-    grid-template-rows: 0.2fr 1fr;  
-    background-color: white;  
+  outline: 1px solid grey;
+  padding: 3px;
+  display: grid;
+  grid-template-rows: 0.2fr 1fr;
+  background-color: white;
 }
 
 .project-title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.8rem;   
-   
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.8rem;
 }
-.project-body{
-    display: grid;
-    grid-template-columns: 0.1fr 1fr 1fr;
-    gap: 10px;
-    padding: 10px;
+.project-body {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
 }
-.task-title, .expand-title {    
-    font-weight: 700;
+.task-title,
+.expand-title {
+  font-weight: 700;
 }
-.due-date-title {    
-    font-weight: 700;
-    text-align: right;
+.due-date-title {
+  font-weight: 700;
+  text-align: right;
 }
 
-.expand-button{
-    width: 1.8rem;
-    margin-left: auto;
-    height: 1.4rem;
-    padding: 0;
-    
+.expand-button {
+  width: 1.8rem;
+  margin-left: auto;
+  height: 1.4rem;
+  padding: 0;
 }
 .project-task {
-    
 }
-.due-date-task{    
-    text-align: right;
+.due-date-task {
+  text-align: right;
 }
 button {
-    font-size: 1rem;
-    padding: 3px;
+  font-size: 1rem;
+  padding: 3px;
 }
 form {
-    margin-top: 25px;
-    font-size: 1.2rem;
-    display: grid;
-    padding: 10px
+  margin-top: 25px;
+  font-size: 1.2rem;
+  display: grid;
+  padding: 10px;
 }
 form p {
-    margin-bottom: 5px;
-    font-weight: 800;
+  margin-bottom: 5px;
+  font-weight: 800;
 }
 form input {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 form button {
-    margin: 5px auto;
-
+  margin: 5px auto;
 }
 textarea {
-    text-align: left;
-    padding: 2px;
+  text-align: left;
+  padding: 2px;
 }

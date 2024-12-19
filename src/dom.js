@@ -1,381 +1,429 @@
-import { Project, projectList, modifyProjectName, deleteProject  } from "./projects.js"
-import { addTask, checkButtonExpandTask, Task, modifyTask, removeTask } from "./tasks.js"
+import {
+  Project,
+  projectList,
+  modifyProjectName,
+  deleteProject,
+} from "./projects.js"
+import {
+  addTask,
+  checkButtonExpandTask,
+  Task,
+  modifyTask,
+  removeTask,
+} from "./tasks.js"
 
-const content=document.querySelector('#content')
+const content = document.querySelector("#content")
 // create new project
 
 // const newProjectButton=document.querySelector("#new-project-button")
 // newProjectButton.addEventListener('click',askProjectName)
 
-
-
-export function askProjectName(){
-    let projectName=prompt("How do you call this new project list?", "New Project")
-    let newProject = Project(projectName)
-    let projectID = 'project-'+Math.trunc(Math.random()*100000)
-    newProject["id"] = projectID
-    projectList.push(newProject)
-    console.log(projectList)
-    return createProjectElement(projectName, projectID)
+export function askProjectName() {
+  let projectName = prompt(
+    "How do you call this new project list?",
+    "New Project"
+  )
+  let newProject = Project(projectName)
+  let projectID = "project-" + Math.trunc(Math.random() * 100000)
+  newProject["id"] = projectID
+  projectList.push(newProject)
+  console.log(projectList)
+  return createProjectElement(projectName, projectID)
 }
 
-
 function createProjectElement(projectName, projectID) {
-    // Create project container
-    const projectDiv = document.createElement("div");
-    projectDiv.className = 'project'
-    projectDiv.setAttribute("id", projectID); // identifier for logic
-    
-    
-    // Create project header
-    const projectHeader = document.createElement("div");
-    projectHeader.className = "project-header";
+  // Create project container
+  const projectDiv = document.createElement("div")
+  projectDiv.className = "project"
+  projectDiv.setAttribute("id", projectID) // identifier for logic
 
-    const projectTitle = document.createElement("p");
-    projectTitle.className = "project-title";
-    projectTitle.textContent = projectName;
+  // Create project header
+  const projectHeader = document.createElement("div")
+  projectHeader.className = "project-header"
 
-    const modifyButton = document.createElement("button");
-    modifyButton.className = `modify-project-name ${projectID}`;
-    
-    modifyButton.textContent = "Modify Project Name";
-    modifyButton.addEventListener('click', modifyProjectName)
+  const projectTitle = document.createElement("p")
+  projectTitle.className = "project-title"
+  projectTitle.textContent = projectName
 
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "delete-project";
-    deleteButton.textContent = "Delete Project";
-    
-   
+  const modifyButton = document.createElement("button")
+  modifyButton.className = `modify-project-name ${projectID}`
 
-    // Append elements to project header
-    projectHeader.appendChild(projectTitle);
-    projectHeader.appendChild(modifyButton);
-    projectHeader.appendChild(deleteButton);
+  modifyButton.textContent = "Modify Project Name"
+  modifyButton.addEventListener("click", modifyProjectName)
 
-    // Create project body
-    const projectBody = document.createElement("div");
-    projectBody.className = "project-body";
+  const deleteButton = document.createElement("button")
+  deleteButton.className = "delete-project"
+  deleteButton.textContent = "Delete Project"
 
-    const expandTitle = document.createElement("div");
-    expandTitle.className = "expand-title";
-    expandTitle.textContent = "Expand";
+  // Append elements to project header
+  projectHeader.appendChild(projectTitle)
+  projectHeader.appendChild(modifyButton)
+  projectHeader.appendChild(deleteButton)
 
-    const taskTitle = document.createElement("div");
-    taskTitle.className = "task-title";
-    taskTitle.textContent = "Task";
+  // Create project body
+  const projectBody = document.createElement("div")
+  projectBody.className = "project-body"
 
-    const dueDateTitle = document.createElement("div");
-    dueDateTitle.className = "due-date-title";
-    dueDateTitle.textContent = "Due Date";
+  const expandTitle = document.createElement("div")
+  expandTitle.className = "expand-title"
+  expandTitle.textContent = "Expand"
 
-    // Append elements to project body
-    projectBody.appendChild(expandTitle);
-    projectBody.appendChild(taskTitle);
-    projectBody.appendChild(dueDateTitle);
+  const taskTitle = document.createElement("div")
+  taskTitle.className = "task-title"
+  taskTitle.textContent = "Task"
 
-    // Create add task section
-    const addTaskSection = document.createElement("div");
-    addTaskSection.className = "add-task-section";
+  const dueDateTitle = document.createElement("div")
+  dueDateTitle.className = "due-date-title"
+  dueDateTitle.textContent = "Due Date"
 
-    const form = document.createElement("form");
-    form.setAttribute("action", "");
-    form.setAttribute("id", projectID);
+  // Append elements to project body
+  projectBody.appendChild(expandTitle)
+  projectBody.appendChild(taskTitle)
+  projectBody.appendChild(dueDateTitle)
 
-    const formHeading = document.createElement("p");
-    formHeading.textContent = "Add New Task:";
+  // Create add task section
+  const addTaskSection = document.createElement("div")
+  addTaskSection.className = "add-task-section"
 
-    const labelTaskTitle = document.createElement("label");
-    labelTaskTitle.setAttribute("for", "task-title");
-    labelTaskTitle.textContent = "Task Title:";
-    
+  const form = document.createElement("form")
+  form.setAttribute("action", "")
+  form.setAttribute("id", projectID)
 
-    const inputTaskTitle = document.createElement("input");
-    inputTaskTitle.setAttribute("type", "text");
-    inputTaskTitle.setAttribute("id", "task-title");
-    inputTaskTitle.setAttribute("name", "task-title");
-    inputTaskTitle.setAttribute("placeholder", "Run 1 mile");
-    inputTaskTitle.className="task-title " + projectID
+  const formHeading = document.createElement("p")
+  formHeading.textContent = "Add New Task:"
 
-    const formSubsection = document.createElement("div");
-    formSubsection.className = "form-subsection";
+  const labelTaskTitle = document.createElement("label")
+  labelTaskTitle.setAttribute("for", "task-title")
+  labelTaskTitle.textContent = "Task Title:"
 
-    const labelDueDate = document.createElement("label");
-    labelDueDate.setAttribute("for", "due-date");
-    labelDueDate.textContent = "Due Date:";
+  const inputTaskTitle = document.createElement("input")
+  inputTaskTitle.setAttribute("type", "text")
+  inputTaskTitle.setAttribute("id", "task-title")
+  inputTaskTitle.setAttribute("name", "task-title")
+  inputTaskTitle.setAttribute("placeholder", "Run 1 mile")
+  inputTaskTitle.className = "task-title " + projectID
 
-    const inputDueDate = document.createElement("input");
-    inputDueDate.setAttribute("type", "date");
-    inputDueDate.setAttribute("id", "due-date");
-    inputDueDate.setAttribute("name", "due-date");
-    inputDueDate.className = "due-date " + projectID
+  const formSubsection = document.createElement("div")
+  formSubsection.className = "form-subsection"
 
-    const labelPriority = document.createElement("label");
-    labelPriority.setAttribute("for", "priority");
-    labelPriority.textContent = "Priority:";
+  const labelDueDate = document.createElement("label")
+  labelDueDate.setAttribute("for", "due-date")
+  labelDueDate.textContent = "Due Date:"
 
-    const selectPriority = document.createElement("select");
-    selectPriority.setAttribute("id", "priority");
-    selectPriority.setAttribute("name", "priority");
-    selectPriority.className = "priority " + projectID
+  const inputDueDate = document.createElement("input")
+  inputDueDate.setAttribute("type", "date")
+  inputDueDate.setAttribute("id", "due-date")
+  inputDueDate.setAttribute("name", "due-date")
+  inputDueDate.className = "due-date " + projectID
 
-    const lowOption = document.createElement("option");
-    lowOption.setAttribute("value", "low");
-    lowOption.textContent = "Low";
+  const labelPriority = document.createElement("label")
+  labelPriority.setAttribute("for", "priority")
+  labelPriority.textContent = "Priority:"
 
-    const mediumOption = document.createElement("option");
-    mediumOption.setAttribute("value", "medium");
-    mediumOption.textContent = "Medium";
+  const selectPriority = document.createElement("select")
+  selectPriority.setAttribute("id", "priority")
+  selectPriority.setAttribute("name", "priority")
+  selectPriority.className = "priority " + projectID
 
-    const highOption = document.createElement("option");
-    highOption.setAttribute("value", "high");
-    highOption.textContent = "High";
+  const lowOption = document.createElement("option")
+  lowOption.setAttribute("value", "low")
+  lowOption.textContent = "Low"
 
-    selectPriority.appendChild(lowOption);
-    selectPriority.appendChild(mediumOption);
-    selectPriority.appendChild(highOption);
+  const mediumOption = document.createElement("option")
+  mediumOption.setAttribute("value", "medium")
+  mediumOption.textContent = "Medium"
 
-    const labelCompleted = document.createElement("label");
-    labelCompleted.setAttribute("for", "completed");
-    labelCompleted.textContent = "Completed?";
+  const highOption = document.createElement("option")
+  highOption.setAttribute("value", "high")
+  highOption.textContent = "High"
 
-    const inputCompleted = document.createElement("input");
-    inputCompleted.setAttribute("type", "checkbox");
-    inputCompleted.setAttribute("id", "completed");
-    inputCompleted.setAttribute("name", "completed");
-    inputCompleted.className = "completed " + projectID
+  selectPriority.appendChild(lowOption)
+  selectPriority.appendChild(mediumOption)
+  selectPriority.appendChild(highOption)
 
-    formSubsection.appendChild(labelDueDate);
-    formSubsection.appendChild(inputDueDate);
-    formSubsection.appendChild(labelPriority);
-    formSubsection.appendChild(selectPriority);
-    formSubsection.appendChild(labelCompleted);
-    formSubsection.appendChild(inputCompleted);
+  const labelCompleted = document.createElement("label")
+  labelCompleted.setAttribute("for", "completed")
+  labelCompleted.textContent = "Completed?"
 
-    const labelDescription = document.createElement("label");
-    labelDescription.setAttribute("for", "description");
-    labelDescription.textContent = "Description:";
+  const inputCompleted = document.createElement("input")
+  inputCompleted.setAttribute("type", "checkbox")
+  inputCompleted.setAttribute("id", "completed")
+  inputCompleted.setAttribute("name", "completed")
+  inputCompleted.className = "completed " + projectID
 
-    const textareaDescription = document.createElement("textarea");
-    textareaDescription.setAttribute("id", "description");
-    textareaDescription.setAttribute("name", "description");
-    textareaDescription.setAttribute("cols", "40");
-    textareaDescription.setAttribute("rows", "4");
-    textareaDescription.className = "description " + projectID
+  formSubsection.appendChild(labelDueDate)
+  formSubsection.appendChild(inputDueDate)
+  formSubsection.appendChild(labelPriority)
+  formSubsection.appendChild(selectPriority)
+  formSubsection.appendChild(labelCompleted)
+  formSubsection.appendChild(inputCompleted)
 
-    const addTaskButton = document.createElement("button");
-    addTaskButton.setAttribute('type','button')
-    addTaskButton.className = "add-task " + projectID ;
-    addTaskButton.textContent = "Add Task";
-    addTaskButton.addEventListener('click',addTask)
+  const labelDescription = document.createElement("label")
+  labelDescription.setAttribute("for", "description")
+  labelDescription.textContent = "Description:"
 
+  const textareaDescription = document.createElement("textarea")
+  textareaDescription.setAttribute("id", "description")
+  textareaDescription.setAttribute("name", "description")
+  textareaDescription.setAttribute("cols", "40")
+  textareaDescription.setAttribute("rows", "4")
+  textareaDescription.className = "description " + projectID
 
-    // Append elements to the form
-    form.appendChild(formHeading);
-    form.appendChild(labelTaskTitle);
-    form.appendChild(inputTaskTitle);
-    form.appendChild(formSubsection);
-    form.appendChild(labelDescription);
-    form.appendChild(textareaDescription);
-    form.appendChild(addTaskButton);
+  const addTaskButton = document.createElement("button")
+  addTaskButton.setAttribute("type", "button")
+  addTaskButton.className = "add-task " + projectID
+  addTaskButton.textContent = "Add Task"
+  addTaskButton.addEventListener("click", addTask)
 
-    // Append form to add task section
-    addTaskSection.appendChild(form);
+  // Append elements to the form
+  form.appendChild(formHeading)
+  form.appendChild(labelTaskTitle)
+  form.appendChild(inputTaskTitle)
+  form.appendChild(formSubsection)
+  form.appendChild(labelDescription)
+  form.appendChild(textareaDescription)
+  form.appendChild(addTaskButton)
 
-    // Append sections to the main project container
-    projectDiv.appendChild(projectHeader);
-    projectDiv.appendChild(projectBody);
-    projectDiv.appendChild(addTaskSection);
+  // Append form to add task section
+  addTaskSection.appendChild(form)
 
-    // Add project container to the content div
-    content.appendChild(projectDiv);
-    // handle delete project
-    deleteButton.addEventListener('click', ()=>{
-        if (confirm('Are you sure you want to delete this project?')) {
-            content.removeChild(projectDiv)
-            deleteProject(projectID)            
-          } 
-        
-    } )
+  // Append sections to the main project container
+  projectDiv.appendChild(projectHeader)
+  projectDiv.appendChild(projectBody)
+  projectDiv.appendChild(addTaskSection)
+
+  // Add project container to the content div
+  content.appendChild(projectDiv)
+  // handle delete project
+  deleteButton.addEventListener("click", () => {
+    if (confirm("Are you sure you want to delete this project?")) {
+      content.removeChild(projectDiv)
+      deleteProject(projectID)
+    }
+  })
 }
 
 //add new task section
-export function createDOMTask(container, projectID, taskID, taskTitle, dueDate) {
-    // Create button element
-    const expandButton = document.createElement('button');
-    expandButton.className = `expand-button ${projectID} ${taskID}`;
-    expandButton.textContent = "+";
-    expandButton.setAttribute('type','button')
-    // expandButton.setAttribute('id', `${projectID} ${taskID}`)
-    expandButton.addEventListener('click', checkButtonExpandTask)
+export function createDOMTask(
+  container,
+  projectID,
+  taskID,
+  taskTitle,
+  dueDate
+) {
+  // Create button element
+  const expandButton = document.createElement("button")
+  expandButton.className = `expand-button ${projectID} ${taskID}`
+  expandButton.textContent = "+"
+  expandButton.setAttribute("type", "button")
+  // expandButton.setAttribute('id', `${projectID} ${taskID}`)
+  expandButton.addEventListener("click", checkButtonExpandTask)
 
-    // Create project task element
-    const task = document.createElement('div');
-    task.className = `project-task ${taskID}`;
-    const taskTitleDiv=document.createElement('div')
-    taskTitleDiv.className='project-task'
-    taskTitleDiv.setAttribute('id',`project-title-${taskID}`)
-    taskTitleDiv.textContent = taskTitle;
-    task.appendChild(taskTitleDiv)
+  // Create project task element
+  const task = document.createElement("div")
+  task.className = `project-task ${taskID}`
+  const taskTitleDiv = document.createElement("div")
+  taskTitleDiv.className = "project-task"
+  taskTitleDiv.setAttribute("id", `project-title-${taskID}`)
+  taskTitleDiv.textContent = taskTitle
+  task.appendChild(taskTitleDiv)
 
-    // Create due date task element
-    const dueDateElement = document.createElement('div');
-    dueDateElement.className = 'due-date-task';
-    dueDateElement.setAttribute('id',`due-date-${taskID}`)
-    dueDateElement.textContent = dueDate;
+  // Create due date task element
+  const dueDateElement = document.createElement("div")
+  dueDateElement.className = "due-date-task"
+  dueDateElement.setAttribute("id", `due-date-${taskID}`)
+  dueDateElement.textContent = dueDate
 
-    // Append elements to the container
-    container.appendChild(expandButton);
-    container.appendChild(task);
-    container.appendChild(dueDateElement);
+  // Append elements to the container
+  container.appendChild(expandButton)
+  container.appendChild(task)
+  container.appendChild(dueDateElement)
 }
 
+export function createDOMExpandTask(
+  projectTarget,
+  projectID,
+  taskID,
+  title,
+  dueDate,
+  completed,
+  description,
+  priority
+) {
+  const expandedTaskDiv = document.createElement("div")
+  expandedTaskDiv.className = `expanded-task ${taskID}`
 
-export function createDOMExpandTask(projectTarget, projectID, taskID, title, dueDate, completed, description, priority) {
-    const expandedTaskDiv = document.createElement("div");
-    expandedTaskDiv.className = `expanded-task ${taskID}`;
+  // Helper function to create a row with an input
+  function createRow(labelText, inputType, inputValue, inputId) {
+    const rowDiv = document.createElement("div")
 
-    // Helper function to create a row with an input
-    function createRow(labelText, inputType, inputValue, inputId) {
-        const rowDiv = document.createElement("div");
+    // Create label
+    const label = document.createElement("label")
+    label.textContent = labelText
+    label.setAttribute("for", inputId)
 
-        // Create label
-        const label = document.createElement("label");
-        label.textContent = labelText;
-        label.setAttribute("for", inputId);
+    // Create input
+    const input = document.createElement("input")
+    input.setAttribute("type", inputType)
+    input.setAttribute("id", inputId)
+    input.value = inputValue
 
-        // Create input
-        const input = document.createElement("input");
-        input.setAttribute("type", inputType);
-        input.setAttribute("id", inputId);
-        input.value = inputValue;
-
-        if (inputType === "checkbox") {
-            input.checked = inputValue; // Set checkbox state
-        }
-
-        // Append elements
-        rowDiv.appendChild(label);
-        rowDiv.appendChild(input);
-
-        return rowDiv;
+    if (inputType === "checkbox") {
+      input.checked = inputValue // Set checkbox state
     }
 
-    // Create "Task Title" input
-    const titleRow = createRow("Task Title: ", "text", title, `task-title-${taskID}`);
+    // Append elements
+    rowDiv.appendChild(label)
+    rowDiv.appendChild(input)
 
-    // Create "Task Description" input
-    const descriptionRow = createRow("Description: ", "text", description, `task-desc-${taskID}`);
+    return rowDiv
+  }
 
-    // Create "Task Due Date" input
-    const dueDateRow = createRow("Due Date: ", "date", dueDate, `task-due-${taskID}`);
+  // Create "Task Title" input
+  const titleRow = createRow(
+    "Task Title: ",
+    "text",
+    title,
+    `task-title-${taskID}`
+  )
 
-    // Create "Task Completed" input
-    const completedRow = createRow("Completed: ", "checkbox", completed, `task-completed-${taskID}`);
+  // Create "Task Description" input
+  const descriptionRow = createRow(
+    "Description: ",
+    "text",
+    description,
+    `task-desc-${taskID}`
+  )
 
-    // Create "Task Priority" dropdown
-    const priorityRow = document.createElement("div");
+  // Create "Task Due Date" input
+  const dueDateRow = createRow(
+    "Due Date: ",
+    "date",
+    dueDate,
+    `task-due-${taskID}`
+  )
 
-    const priorityLabel = document.createElement("label");
-    priorityLabel.textContent = "Priority: ";
-    priorityLabel.setAttribute("for", `priority-${taskID}`);
+  // Create "Task Completed" input
+  const completedRow = createRow(
+    "Completed: ",
+    "checkbox",
+    completed,
+    `task-completed-${taskID}`
+  )
 
-    const prioritySelect = document.createElement("select");
-    prioritySelect.setAttribute("id", `priority-${taskID}`);
-    prioritySelect.setAttribute("name", "priority");
+  // Create "Task Priority" dropdown
+  const priorityRow = document.createElement("div")
 
-    // Create priority options
-    ["low", "medium", "high"].forEach((level) => {
-        const option = document.createElement("option");
-        option.value = level;
-        option.textContent = level.charAt(0).toUpperCase() + level.slice(1);
-        if (level === priority) option.selected = true;
-        prioritySelect.appendChild(option);
-    });
+  const priorityLabel = document.createElement("label")
+  priorityLabel.textContent = "Priority: "
+  priorityLabel.setAttribute("for", `priority-${taskID}`)
 
-    priorityRow.appendChild(priorityLabel);
-    priorityRow.appendChild(prioritySelect);
+  const prioritySelect = document.createElement("select")
+  prioritySelect.setAttribute("id", `priority-${taskID}`)
+  prioritySelect.setAttribute("name", "priority")
 
-    // Create "Update Task" button
-    const updateButton = document.createElement("button");
-    updateButton.textContent = "Update Task";
-    updateButton.className = "update-task-button";
+  // Create priority options
+  ;["low", "medium", "high"].forEach((level) => {
+    const option = document.createElement("option")
+    option.value = level
+    option.textContent = level.charAt(0).toUpperCase() + level.slice(1)
+    if (level === priority) option.selected = true
+    prioritySelect.appendChild(option)
+  })
 
-    // Event listener for the "Update Task" button
-    updateButton.addEventListener("click", () => {
-        const updatedTitle = document.querySelector(`#task-title-${taskID}`).value;
-        const updatedDescription = document.querySelector(`#task-desc-${taskID}`).value;
-        const updatedDueDate = document.querySelector(`#task-due-${taskID}`).value;
-        const updatedCompleted = document.querySelector(`#task-completed-${taskID}`).checked;
-        const updatedPriority = document.querySelector(`#priority-${taskID}`).value;
+  priorityRow.appendChild(priorityLabel)
+  priorityRow.appendChild(prioritySelect)
 
-        // Update task logic (replace with your update function)
-        console.log(`Task ${taskID} updated:`);
-        console.log(`Title: ${updatedTitle}`);
-        console.log(`Description: ${updatedDescription}`);
-        console.log(`Due Date: ${updatedDueDate}`);
-        console.log(`Completed: ${updatedCompleted}`);
-        console.log(`Priority: ${updatedPriority}`);
-        // real time update task title
-        let taskTitleDiv=document.querySelector(`div#project-title-${taskID}`)
-        taskTitleDiv.textContent=updatedTitle
-        // real time update task due date
-        let taskDueDateDiv=document.querySelector(`div#due-date-${taskID}`) 
-        taskDueDateDiv.textContent=updatedDueDate
-        modifyTask(
-            projectTarget,
-            projectID,
-            taskID,
-            updatedTitle,
-            updatedDescription,
-            updatedDueDate,
-            updatedCompleted,
-            updatedPriority
-        )
-        
-        // Optionally, update the DOM to reflect changes
-    });
+  // Create "Update Task" button
+  const updateButton = document.createElement("button")
+  updateButton.textContent = "Update Task"
+  updateButton.className = "update-task-button"
 
-    // Append all rows to the main container
-    expandedTaskDiv.appendChild(titleRow);
-    expandedTaskDiv.appendChild(descriptionRow);
-    expandedTaskDiv.appendChild(dueDateRow);
-    expandedTaskDiv.appendChild(completedRow);
-    expandedTaskDiv.appendChild(priorityRow);
+  // Event listener for the "Update Task" button
+  updateButton.addEventListener("click", () => {
+    const updatedTitle = document.querySelector(`#task-title-${taskID}`).value
+    const updatedDescription = document.querySelector(
+      `#task-desc-${taskID}`
+    ).value
+    const updatedDueDate = document.querySelector(`#task-due-${taskID}`).value
+    const updatedCompleted = document.querySelector(
+      `#task-completed-${taskID}`
+    ).checked
+    const updatedPriority = document.querySelector(`#priority-${taskID}`).value
 
-    // Append the "Update Task" button
-    expandedTaskDiv.appendChild(updateButton);
+    // Update task logic (replace with your update function)
+    console.log(`Task ${taskID} updated:`)
+    console.log(`Title: ${updatedTitle}`)
+    console.log(`Description: ${updatedDescription}`)
+    console.log(`Due Date: ${updatedDueDate}`)
+    console.log(`Completed: ${updatedCompleted}`)
+    console.log(`Priority: ${updatedPriority}`)
+    // real time update task title
+    let taskTitleDiv = document.querySelector(`div#project-title-${taskID}`)
+    taskTitleDiv.textContent = updatedTitle
+    // real time update task due date
+    let taskDueDateDiv = document.querySelector(`div#due-date-${taskID}`)
+    taskDueDateDiv.textContent = updatedDueDate
+    modifyTask(
+      projectTarget,
+      projectID,
+      taskID,
+      updatedTitle,
+      updatedDescription,
+      updatedDueDate,
+      updatedCompleted,
+      updatedPriority
+    )
 
-    // Create "Delete Task" button
-    const deleteTaskButton = document.createElement("button");
-    deleteTaskButton.textContent = "Delete This Task";
-    deleteTaskButton.className = "delete-task-button";
-    
+    // Optionally, update the DOM to reflect changes
+  })
 
-    // Append the "Update Task" button
-    expandedTaskDiv.appendChild(deleteTaskButton);
+  // Append all rows to the main container
+  expandedTaskDiv.appendChild(titleRow)
+  expandedTaskDiv.appendChild(descriptionRow)
+  expandedTaskDiv.appendChild(dueDateRow)
+  expandedTaskDiv.appendChild(completedRow)
+  expandedTaskDiv.appendChild(priorityRow)
 
-    // Append the main container to the DOM
-    const divProjectTask = document.querySelector(`#${projectID} div.project-task.${taskID}`);
-    divProjectTask.appendChild(expandedTaskDiv);
+  // Append the "Update Task" button
+  expandedTaskDiv.appendChild(updateButton)
 
-    deleteTaskButton.addEventListener('click', ()=>{
-        const expandButton=document.querySelector(`button.expand-button.${taskID}`)
-        // const taskTitleDiv=document.querySelector(`div#project-task.${taskID}`)
-        const taskTitleDiv=document.querySelector(`div.project-task.${taskID}`)
-        const taskDueDateDiv=document.querySelector(`div#due-date-${taskID}`)
-        const projectBody=document.querySelector(`div#${projectID} div.project-body`)
-        removeDOMExpandTask(projectID, taskID)
-        projectBody.removeChild(expandButton)
-        projectBody.removeChild(taskTitleDiv)
-        projectBody.removeChild(taskDueDateDiv)
-        removeTask(projectTarget, projectID, taskID)
-    })
+  // Create "Delete Task" button
+  const deleteTaskButton = document.createElement("button")
+  deleteTaskButton.textContent = "Delete This Task"
+  deleteTaskButton.className = "delete-task-button"
+
+  // Append the "Update Task" button
+  expandedTaskDiv.appendChild(deleteTaskButton)
+
+  // Append the main container to the DOM
+  const divProjectTask = document.querySelector(
+    `#${projectID} div.project-task.${taskID}`
+  )
+  divProjectTask.appendChild(expandedTaskDiv)
+
+  deleteTaskButton.addEventListener("click", () => {
+    const expandButton = document.querySelector(
+      `button.expand-button.${taskID}`
+    )
+    // const taskTitleDiv=document.querySelector(`div#project-task.${taskID}`)
+    const taskTitleDiv = document.querySelector(`div.project-task.${taskID}`)
+    const taskDueDateDiv = document.querySelector(`div#due-date-${taskID}`)
+    const projectBody = document.querySelector(
+      `div#${projectID} div.project-body`
+    )
+    removeDOMExpandTask(projectID, taskID)
+    projectBody.removeChild(expandButton)
+    projectBody.removeChild(taskTitleDiv)
+    projectBody.removeChild(taskDueDateDiv)
+    removeTask(projectTarget, projectID, taskID)
+  })
 }
 
 export function removeDOMExpandTask(projectID, taskID) {
-    const divProjectTask = document.querySelector(`#${projectID} div.project-task.${taskID}`);
-    const expandedTaskDiv = document.querySelector(`div.expanded-task.${taskID}`);
-    divProjectTask.removeChild(expandedTaskDiv);
+  const divProjectTask = document.querySelector(
+    `#${projectID} div.project-task.${taskID}`
+  )
+  const expandedTaskDiv = document.querySelector(`div.expanded-task.${taskID}`)
+  divProjectTask.removeChild(expandedTaskDiv)
 }
-
-

@@ -1,67 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do List</title>
     <!-- below line to be removed
     <script src="index.js" type="module"></script>
     <link rel="stylesheet" href="style.css"> -->
-</head>
-<body>   
-    
+  </head>
+  <body>
     <h1>TO DO LIST</h1>
     <div class="div-button-new-project">
-        <button id="new-project-button">Add New Project</button>
+      <button id="new-project-button">Add New Project</button>
     </div>
     <div id="content">
-        
-         <div class="project today" id="today">
-            <div class="project-header">
-                
-                <p class="project-title">Today's Tasks</p>
-                <button class="modify-project-name today" >Modify Project Name</button>
-                
-            </div>
-            <div class="project-body">
-             
-                <div class="expand-title">Expand</div> <div class="task-title">Task</div><div class="due-date-title">Due Date</div>
-                
-                <button class="expand-button today example-task">+</button>
-                <div class="project-task example-task">
-                    <div class="project-task" id="project-title-example-task">Example: 1000 steps</div>
+      <div class="project today" id="today">
+        <div class="project-header">
+          <p class="project-title">Today's Tasks</p>
+          <button class="modify-project-name today">Modify Project Name</button>
+        </div>
+        <div class="project-body">
+          <div class="expand-title">Expand</div>
+          <div class="task-title">Task</div>
+          <div class="due-date-title">Due Date</div>
 
-                </div><div class="due-date-task" id="due-date-example-task">2024-12-15</div>
-                
+          <button class="expand-button today example-task">+</button>
+          <div class="project-task example-task">
+            <div class="project-task" id="project-title-example-task">
+              Example: 1000 steps
             </div>
-            <div class="add-task-section">
-                <form id="today" action="">
-                        <p>Add New Task:</p>
-                        <label for="task-title">Task Title:</label>
-                        <input class="today" type="text" id="task-title" name="task-title" placeholder="Run 1 mile">
-                        <div class="form-subsection">
-                            <label for="due-date">Due Date:</label>
-                            <input class="today" type="date" id="due-date" name="due-date">
-                            <label for="priority">Priority:</label>
-                            
-                            <select class="today" name="priority" id="priority">
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
-                            </select>
-                            <label for="completed">Completed?</label>
-                            <input class="today" type="checkbox" id="completed" name="completed">
-                        </div>
-                        <label for="description">Description:</label>
-                        <textarea class="today" type="text" id="description" name="description" cols="40" rows="4"></textarea>
-                        <button type="button" class="add-task today">Add Task</button>
-                      
-                </form>
+          </div>
+          <div class="due-date-task" id="due-date-example-task">2024-12-15</div>
+        </div>
+        <div class="add-task-section">
+          <form id="today" action="">
+            <p>Add New Task:</p>
+            <label for="task-title">Task Title:</label>
+            <input
+              class="today"
+              type="text"
+              id="task-title"
+              name="task-title"
+              placeholder="Run 1 mile"
+            />
+            <div class="form-subsection">
+              <label for="due-date">Due Date:</label>
+              <input class="today" type="date" id="due-date" name="due-date" />
+              <label for="priority">Priority:</label>
+
+              <select class="today" name="priority" id="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+              <label for="completed">Completed?</label>
+              <input
+                class="today"
+                type="checkbox"
+                id="completed"
+                name="completed"
+              />
             </div>
-         </div>
-        
-    </div>   
-        
-    
-</body>
+            <label for="description">Description:</label>
+            <textarea
+              class="today"
+              type="text"
+              id="description"
+              name="description"
+              cols="40"
+              rows="4"
+            ></textarea>
+            <button type="button" class="add-task today">Add Task</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
